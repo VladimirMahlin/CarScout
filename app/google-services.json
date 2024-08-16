@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "131451205832",
+    "project_id": "carscout-b74ce",
+    "storage_bucket": "carscout-b74ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131451205832:android:0bd047463359338551cdfd",
+        "android_client_info": {
+          "package_name": "com.example.carscout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4tR_pfk8_9aOq_3T798-KrBQDbY9JC64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

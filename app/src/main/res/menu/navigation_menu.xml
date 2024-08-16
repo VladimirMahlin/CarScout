@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Home"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/dealershipsFragment"
+        android:title="Dealerships"
+        android:icon="@drawable/ic_dealership" />
+    <item
+        android:id="@+id/carsFragment"
+        android:title="Cars"
+        android:icon="@drawable/ic_car" />
+    <item
+        android:id="@+id/mapFragment"
+        android:title="Map"
+        android:icon="@drawable/ic_map" />
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profile"
+        android:icon="@drawable/ic_user_profile" />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/ic_logout" />
+</menu>

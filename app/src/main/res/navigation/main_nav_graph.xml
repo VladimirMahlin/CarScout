@@ -1,0 +1,36 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.carscout.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/dealershipsFragment"
+        android:name="com.example.carscout.fragments.DealershipsFragment"
+        android:label="Dealerships"
+        tools:layout="@layout/fragment_dealerships" />
+
+    <fragment
+        android:id="@+id/carsFragment"
+        android:name="com.example.carscout.fragments.CarsFragment"
+        android:label="Cars"
+        tools:layout="@layout/fragment_cars" />
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.carscout.fragments.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.carscout.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
