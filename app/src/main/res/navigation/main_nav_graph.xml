@@ -17,10 +17,40 @@
         tools:layout="@layout/fragment_dealerships" />
 
     <fragment
-        android:id="@+id/carsFragment"
-        android:name="com.example.carscout.fragments.CarsFragment"
+        android:id="@+id/carListFragment"
+        android:name="com.example.carscout.fragments.CarListFragment"
         android:label="Cars"
-        tools:layout="@layout/fragment_cars" />
+        tools:layout="@layout/fragment_car_list">
+
+        <action
+            android:id="@+id/action_carListFragment_to_carDetailFragment"
+            app:destination="@id/carDetailFragment">
+            <argument
+                android:name="carId"
+                app:argType="string" />
+        </action>
+
+        <action
+            android:id="@+id/action_carListFragment_to_carAddFragment"
+            app:destination="@id/carAddFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/carDetailFragment"
+        android:name="com.example.carscout.fragments.CarDetailFragment"
+        android:label="Car Detail"
+        tools:layout="@layout/fragment_car_detail">
+        <argument
+            android:name="carId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/carAddFragment"
+        android:name="com.example.carscout.fragments.CarAddFragment"
+        android:label="Add Car"
+        tools:layout="@layout/fragment_car_add" />
 
     <fragment
         android:id="@+id/mapFragment"

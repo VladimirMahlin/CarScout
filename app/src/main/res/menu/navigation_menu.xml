@@ -8,7 +8,7 @@
         android:title="Dealerships"
         android:icon="@drawable/ic_dealership" />
     <item
-        android:id="@+id/carsFragment"
+        android:id="@+id/carListFragment"
         android:title="Cars"
         android:icon="@drawable/ic_car" />
     <item
