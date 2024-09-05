@@ -12,31 +12,24 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/carImageCard"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/carImagesRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            android:clipToPadding="false"
+            android:padding="8dp"
+            android:scrollbars="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:id="@+id/carImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="Car Image" />
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/carModelInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/carImageCard"
+            app:layout_constraintTop_toBottomOf="@id/carImagesRecyclerView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -93,6 +86,27 @@
                 android:inputType="numberDecimal"
                 android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editSaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Edit"
+            app:layout_constraintTop_toBottomOf="@id/carPriceInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.Button" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

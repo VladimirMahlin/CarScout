@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Car Model Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/carModelInputLayout"
             android:layout_width="0dp"
@@ -28,6 +29,7 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Car Year Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/carYearInputLayout"
             android:layout_width="0dp"
@@ -45,6 +47,7 @@
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Car Price Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/carPriceInputLayout"
             android:layout_width="0dp"
@@ -62,33 +65,40 @@
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/carImageUrlInputLayout"
+        <!-- RecyclerView to Display Selected Images -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imageRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Image URL"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/carPriceInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/carImageUrlEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textUri" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <!-- Add Image Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Images"
+            app:layout_constraintTop_toBottomOf="@id/imageRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
 
+        <!-- Save Car Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveCarButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Save Car"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/carImageUrlInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/addImageButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" />
 
+        <!-- Loading Progress Bar -->
         <ProgressBar
             android:id="@+id/loadingProgressBar"
             android:layout_width="wrap_content"

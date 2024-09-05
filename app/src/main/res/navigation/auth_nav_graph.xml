@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.carscout.fragments.LoginFragment"
+        android:name="com.example.carscout.ui.auth.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.carscout.fragments.RegistrationFragment"
+        android:name="com.example.carscout.ui.auth.RegistrationFragment"
         android:label="Register"
         tools:layout="@layout/fragment_registration">
         <action

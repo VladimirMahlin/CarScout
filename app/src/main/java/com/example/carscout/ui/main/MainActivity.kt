@@ -1,4 +1,4 @@
-package com.example.carscout.activities
+package com.example.carscout.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem

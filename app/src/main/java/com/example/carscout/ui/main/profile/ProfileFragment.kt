@@ -1,4 +1,4 @@
-package com.example.carscout.fragments
+package com.example.carscout.ui.main.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

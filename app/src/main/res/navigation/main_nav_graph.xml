@@ -12,13 +12,13 @@
 
     <fragment
         android:id="@+id/dealershipsFragment"
-        android:name="com.example.carscout.fragments.DealershipsFragment"
+        android:name="com.example.carscout.ui.main.dealerships.DealershipListFragment"
         android:label="Dealerships"
         tools:layout="@layout/fragment_dealerships" />
 
     <fragment
         android:id="@+id/carListFragment"
-        android:name="com.example.carscout.fragments.CarListFragment"
+        android:name="com.example.carscout.ui.main.cars.CarListFragment"
         android:label="Cars"
         tools:layout="@layout/fragment_car_list">
 
@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/carDetailFragment"
-        android:name="com.example.carscout.fragments.CarDetailFragment"
+        android:name="com.example.carscout.ui.main.cars.CarDetailFragment"
         android:label="Car Detail"
         tools:layout="@layout/fragment_car_detail">
         <argument
@@ -48,19 +48,19 @@
 
     <fragment
         android:id="@+id/carAddFragment"
-        android:name="com.example.carscout.fragments.CarAddFragment"
+        android:name="com.example.carscout.ui.main.cars.CarAddFragment"
         android:label="Add Car"
         tools:layout="@layout/fragment_car_add" />
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.carscout.fragments.MapFragment"
+        android:name="com.example.carscout.ui.main.map.MapFragment"
         android:label="Map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.carscout.fragments.ProfileFragment"
+        android:name="com.example.carscout.ui.main.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -17,7 +17,7 @@
             android:exported="false" />
         <!-- SplashActivity as Launcher -->
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +26,10 @@
             </intent-filter>
         </activity> <!-- AuthActivity to handle login and registration -->
         <activity
-            android:name=".activities.AuthActivity"
+            android:name=".ui.auth.AuthActivity"
             android:exported="false" /> <!-- MainActivity as the home page after login -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
     </application>
 

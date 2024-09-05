@@ -1,4 +1,4 @@
-package com.example.carscout.fragments
+package com.example.carscout.ui.main.dealerships
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.carscout.databinding.FragmentDealershipsBinding
 
-class DealershipsFragment : Fragment() {
+class DealershipListFragment : Fragment() {
 
     private var _binding: FragmentDealershipsBinding? = null
     private val binding get() = _binding!!

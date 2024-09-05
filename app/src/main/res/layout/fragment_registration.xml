@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.RegistrationFragment">
+    tools:context=".ui.auth.RegistrationFragment">
 
     <TextView
         android:id="@+id/registerTitle"
@@ -56,19 +56,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
+    <CheckBox
+        android:id="@+id/businessCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Register as Business"
+        app:layout_constraintStart_toStartOf="@+id/confirmPasswordEditText"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordEditText" />
+
     <Button
         android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/primary_color"
         android:text="Register"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/businessCheckBox" />
 
     <TextView
         android:id="@+id/alreadyHaveAccountTextView"

@@ -1,4 +1,4 @@
-package com.example.carscout.fragments
+package com.example.carscout.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carscout.R
+import com.example.carscout.data.model.Car
 import com.example.carscout.databinding.ItemCarBinding
 import com.squareup.picasso.Picasso
 
@@ -19,27 +20,25 @@ class CarListAdapter(private val onItemClick: (Car) -> Unit) :
 
     override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
         val car = getItem(position)
-        holder.bind(car, onItemClick)
+        holder.bind(car)
     }
 
-    class CarViewHolder(private val binding: ItemCarBinding) :
+    inner class CarViewHolder(private val binding: ItemCarBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(car: Car, onItemClick: (Car) -> Unit) {
+        fun bind(car: Car) {
             binding.carModelTextView.text = car.model
             binding.carYearTextView.text = car.year.toString()
             binding.carPriceTextView.text = "$${car.price}"
 
-            // Load image with Picasso
+            val mainImageUrl = car.imageUrls.firstOrNull()
             Picasso.get()
-                .load(car.imageUrl)
+                .load(mainImageUrl)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.error)
                 .into(binding.carImageView)
 
-            binding.root.setOnClickListener {
-                onItemClick(car)
-            }
+            binding.root.setOnClickListener { onItemClick(car) }
         }
     }
 

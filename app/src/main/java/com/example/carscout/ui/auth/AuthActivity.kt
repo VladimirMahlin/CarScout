@@ -1,4 +1,4 @@
-package com.example.carscout.activities
+package com.example.carscout.ui.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
