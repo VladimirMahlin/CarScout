@@ -4,24 +4,61 @@
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/homeFragment">
 
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.carscout.fragments.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
+    <!-- Dealership List Fragment -->
     <fragment
-        android:id="@+id/dealershipsFragment"
+        android:id="@+id/dealershipListFragment"
         android:name="com.example.carscout.ui.main.dealerships.DealershipListFragment"
         android:label="Dealerships"
-        tools:layout="@layout/fragment_dealerships" />
+        tools:layout="@layout/fragment_dealership_list">
 
+        <!-- Action to DealershipDetailFragment -->
+        <action
+            android:id="@+id/action_dealershipListFragment_to_dealershipDetailFragment"
+            app:destination="@id/dealershipDetailFragment">
+            <argument
+                android:name="dealershipId"
+                app:argType="string" />
+        </action>
+
+        <!-- Action to DealershipAddFragment -->
+        <action
+            android:id="@+id/action_dealershipListFragment_to_dealershipAddFragment"
+            app:destination="@id/dealershipAddFragment" />
+    </fragment>
+
+    <!-- Dealership Detail Fragment -->
+    <fragment
+        android:id="@+id/dealershipDetailFragment"
+        android:name="com.example.carscout.ui.main.dealerships.DealershipDetailFragment"
+        android:label="Dealership Detail"
+        tools:layout="@layout/fragment_dealership_detail">
+        <argument
+            android:name="dealershipId"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Dealership Add Fragment -->
+    <fragment
+        android:id="@+id/dealershipAddFragment"
+        android:name="com.example.carscout.ui.main.dealerships.DealershipAddFragment"
+        android:label="Add Dealership"
+        tools:layout="@layout/fragment_dealership_add" />
+
+    <!-- Car List Fragment -->
     <fragment
         android:id="@+id/carListFragment"
         android:name="com.example.carscout.ui.main.cars.CarListFragment"
         android:label="Cars"
         tools:layout="@layout/fragment_car_list">
 
+        <!-- Action to CarDetailFragment -->
         <action
             android:id="@+id/action_carListFragment_to_carDetailFragment"
             app:destination="@id/carDetailFragment">
@@ -30,12 +67,13 @@
                 app:argType="string" />
         </action>
 
+        <!-- Action to CarAddFragment -->
         <action
             android:id="@+id/action_carListFragment_to_carAddFragment"
             app:destination="@id/carAddFragment" />
     </fragment>
 
-
+    <!-- Car Detail Fragment -->
     <fragment
         android:id="@+id/carDetailFragment"
         android:name="com.example.carscout.ui.main.cars.CarDetailFragment"
@@ -46,18 +84,21 @@
             app:argType="string" />
     </fragment>
 
+    <!-- Car Add Fragment -->
     <fragment
         android:id="@+id/carAddFragment"
         android:name="com.example.carscout.ui.main.cars.CarAddFragment"
         android:label="Add Car"
         tools:layout="@layout/fragment_car_add" />
 
+    <!-- Map Fragment -->
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.carscout.ui.main.map.MapFragment"
         android:label="Map"
         tools:layout="@layout/fragment_map" />
 
+    <!-- Profile Fragment -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.carscout.ui.main.profile.ProfileFragment"

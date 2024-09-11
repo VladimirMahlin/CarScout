@@ -1,66 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/carImageView"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            android:id="@+id/carModelTextView"
+            android:id="@+id/carManufacturerModelTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Car Model"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            app:layout_constraintStart_toEndOf="@id/carImageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/carImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Toyota Corolla" />
 
         <TextView
             android:id="@+id/carYearTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Year"
+            android:layout_marginTop="4dp"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintStart_toEndOf="@id/carImageView"
-            app:layout_constraintTop_toBottomOf="@id/carModelTextView"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/carManufacturerModelTextView"
+            app:layout_constraintStart_toStartOf="@id/carManufacturerModelTextView"
+            tools:text="2022" />
+
+        <TextView
+            android:id="@+id/carMileageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintTop_toTopOf="@id/carYearTextView"
+            app:layout_constraintStart_toEndOf="@id/carYearTextView"
+            tools:text="15,000 miles" />
 
         <TextView
             android:id="@+id/carPriceTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Price"
-            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_green_dark"
-            app:layout_constraintStart_toEndOf="@id/carImageView"
+            android:textColor="@color/design_default_color_primary"
             app:layout_constraintTop_toBottomOf="@id/carYearTextView"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/carManufacturerModelTextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="$25,000" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

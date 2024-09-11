@@ -25,6 +25,7 @@ class CarDetailFragment : Fragment() {
 
     private var isEditing = false
     private lateinit var imageAdapter: CarImageAdapter
+    private var isAuthor = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,20 +64,30 @@ class CarDetailFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.currentCar.observe(viewLifecycleOwner) { car ->
-            binding.carModelEditText.setText(car.model)
-            binding.carYearEditText.setText(car.year.toString())
-            binding.carPriceEditText.setText(car.price.toString())
-            imageAdapter = CarImageAdapter(car.imageUrls)
-            binding.carImagesRecyclerView.adapter = imageAdapter
+            car?.let {
+                binding.carManufacturerEditText.setText(car.manufacturer)
+                binding.carModelEditText.setText(car.model)
+                binding.carYearEditText.setText(car.year.toString())
+                binding.carMileageEditText.setText(car.mileage.toString())
+                binding.carConditionEditText.setText(car.condition)
+                binding.carDescriptionEditText.setText(car.description)
+                binding.carPriceEditText.setText(car.price.toString())
+                imageAdapter = CarImageAdapter(car.imageUrls)
+                binding.carImagesRecyclerView.adapter = imageAdapter
+
+                // Check if current user is the author
+                isAuthor = viewModel.isCurrentUserAuthor(car.ownerId)
+                updateEditButtonVisibility()
+
+                enableEditing(false)
+            }
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.carImagesRecyclerView.alpha = if (isLoading) 0.5f else 1.0f
-            binding.carModelInputLayout.isEnabled = !isLoading
-            binding.carYearInputLayout.isEnabled = !isLoading
-            binding.carPriceInputLayout.isEnabled = !isLoading
-            binding.editSaveButton.isEnabled = !isLoading
+            binding.editSaveButton.isEnabled = !isLoading && isAuthor
+            toggleInputFields(!isLoading)
         }
 
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
@@ -84,25 +95,67 @@ class CarDetailFragment : Fragment() {
         }
     }
 
+    private fun updateEditButtonVisibility() {
+        binding.editSaveButton.visibility = if (isAuthor) View.VISIBLE else View.GONE
+    }
+
+    private fun toggleInputFields(isEnabled: Boolean) {
+        binding.carManufacturerInputLayout.isEnabled = isEnabled && isAuthor
+        binding.carModelInputLayout.isEnabled = isEnabled && isAuthor
+        binding.carYearInputLayout.isEnabled = isEnabled && isAuthor
+        binding.carMileageInputLayout.isEnabled = isEnabled && isAuthor
+        binding.carConditionInputLayout.isEnabled = isEnabled && isAuthor
+        binding.carDescriptionInputLayout.isEnabled = isEnabled && isAuthor
+        binding.carPriceInputLayout.isEnabled = isEnabled && isAuthor
+    }
+
     private fun enableEditing(enable: Boolean) {
+        if (!isAuthor) return
         isEditing = enable
-        binding.carModelEditText.isEnabled = enable
-        binding.carYearEditText.isEnabled = enable
-        binding.carPriceEditText.isEnabled = enable
-        binding.editSaveButton.text = if (enable) "Save" else "Edit"
+        toggleInputFields(enable)
+        binding.editSaveButton.text = if (enable) "Save" else "Edit" //TODO fix editing
     }
 
     private fun saveCarDetails() {
-        val model = binding.carModelEditText.text.toString().trim()
-        val year = binding.carYearEditText.text.toString().toIntOrNull()
-        val price = binding.carPriceEditText.text.toString().toDoubleOrNull()
+        if (!isAuthor) {
+            Toast.makeText(requireContext(), "You are not authorized to edit this listing", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        if (model.isEmpty() || year == null || price == null) {
+        val manufacturer = binding.carManufacturerEditText.text.toString().trim()
+        val model = binding.carModelEditText.text.toString().trim()
+        val yearString = binding.carYearEditText.text.toString().trim()
+        val mileageString = binding.carMileageEditText.text.toString().trim()
+        val condition = binding.carConditionEditText.text.toString().trim()
+        val description = binding.carDescriptionEditText.text.toString().trim()
+        val priceString = binding.carPriceEditText.text.toString().trim()
+
+        if (manufacturer.isEmpty() || model.isEmpty() || yearString.isEmpty() || mileageString.isEmpty() ||
+            condition.isEmpty() || description.isEmpty() || priceString.isEmpty()) {
             Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
             return
         }
 
-        viewModel.updateCar(args.carId, model, year, price)
+        val year = yearString.toIntOrNull()
+        val mileage = mileageString.toIntOrNull()
+        val price = priceString.toDoubleOrNull()
+
+        if (year == null || mileage == null || price == null) {
+            Toast.makeText(requireContext(), "Invalid input for year, mileage, or price", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        viewModel.updateCar(
+            args.carId,
+            manufacturer,
+            model,
+            year,
+            mileage,
+            condition,
+            description,
+            price
+        )
+        enableEditing(false)
     }
 
     override fun onDestroyView() {

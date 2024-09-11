@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.carscout.databinding.FragmentDealershipAddBinding
 import com.example.carscout.viewmodel.DealershipViewModel
 import com.example.carscout.viewmodel.DealershipViewModelFactory
+import com.example.carscout.data.repository.DealershipRepository
 
 class DealershipAddFragment : Fragment() {
 
@@ -44,8 +45,8 @@ class DealershipAddFragment : Fragment() {
             viewModel.addDealership(name, address)
         }
 
-        viewModel.error.observe(viewLifecycleOwner) { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 

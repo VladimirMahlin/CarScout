@@ -12,38 +12,71 @@ class CarRepository {
     private val storage = FirebaseStorage.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
+    // Fetch all cars from the listings
     suspend fun getCars(): List<Car> {
         return firestore.collection("listings").get().await().toObjects(Car::class.java)
     }
 
+    // Fetch a specific car by its ID
     suspend fun getCarById(carId: String): Car? {
         return firestore.collection("listings").document(carId).get().await().toObject(Car::class.java)
     }
 
-    suspend fun addCar(model: String, year: Int, price: Double, imageUris: List<Uri>): String {
+    // Add a new car listing to Firestore
+    suspend fun addCar(
+        manufacturer: String,
+        model: String,
+        year: Int,
+        mileage: Int,
+        condition: String,
+        description: String,
+        price: Double,
+        imageUris: List<Uri>
+    ): String {
         val currentUser = auth.currentUser ?: throw IllegalStateException("User must be logged in")
 
+        // Upload the images to Firebase Storage and get their URLs
         val imageUrls = uploadImages(imageUris)
 
+        // Create a new Car object with all required fields
         val car = Car(
+            manufacturer = manufacturer,
             model = model,
             year = year,
+            mileage = mileage,
+            condition = condition,
+            description = description,
             price = price,
             imageUrls = imageUrls,
             ownerId = currentUser.uid,
             createdAt = System.currentTimeMillis()
         )
 
+        // Add the car object to Firestore
         return firestore.collection("listings").add(car).await().id
     }
 
-    suspend fun updateCar(carId: String, model: String, year: Int, price: Double): Boolean {
+    // Update a car listing in Firestore
+    suspend fun updateCar(
+        carId: String,
+        manufacturer: String,
+        model: String,
+        year: Int,
+        mileage: Int,
+        condition: String,
+        description: String,
+        price: Double
+    ): Boolean {
         return try {
             firestore.collection("listings").document(carId)
                 .update(
                     mapOf(
+                        "manufacturer" to manufacturer,
                         "model" to model,
                         "year" to year,
+                        "mileage" to mileage,
+                        "condition" to condition,
+                        "description" to description,
                         "price" to price
                     )
                 ).await()
@@ -53,6 +86,7 @@ class CarRepository {
         }
     }
 
+    // Helper function to upload images to Firebase Storage
     private suspend fun uploadImages(imageUris: List<Uri>): List<String> {
         val currentUser = auth.currentUser ?: throw IllegalStateException("User must be logged in")
         return imageUris.mapIndexed { index, uri ->

@@ -7,28 +7,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.carscout.R
-import com.example.carscout.databinding.FragmentDealershipListBinding
-import com.example.carscout.ui.adapters.DealershipListAdapter
+import androidx.navigation.fragment.navArgs
+import com.example.carscout.databinding.FragmentDealershipDetailBinding
 import com.example.carscout.viewmodel.DealershipViewModel
 import com.example.carscout.viewmodel.DealershipViewModelFactory
 import com.example.carscout.data.repository.DealershipRepository
 
-class DealershipListFragment : Fragment() {
+class DealershipDetailFragment : Fragment() {
 
-    private var _binding: FragmentDealershipListBinding? = null
+    private var _binding: FragmentDealershipDetailBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: DealershipViewModel
-    private lateinit var adapter: DealershipListAdapter
+    private val args: DealershipDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDealershipListBinding.inflate(inflater, container, false)
+        _binding = FragmentDealershipDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,28 +35,17 @@ class DealershipListFragment : Fragment() {
         val factory = DealershipViewModelFactory(DealershipRepository())
         viewModel = ViewModelProvider(this, factory).get(DealershipViewModel::class.java)
 
-        setupRecyclerView()
         observeViewModel()
-
-        binding.addDealershipButton.setOnClickListener {
-            findNavController().navigate(R.id.action_dealershipListFragment_to_dealershipAddFragment)
-        }
-
-        viewModel.loadDealerships()
-    }
-
-    private fun setupRecyclerView() {
-        adapter = DealershipListAdapter { dealership ->
-            val action = DealershipListFragmentDirections.actionDealershipListFragmentToDealershipDetailFragment(dealership.id)
-            findNavController().navigate(action)
-        }
-        binding.dealershipListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.dealershipListRecyclerView.adapter = adapter
+        viewModel.loadDealershipById(args.dealershipId)
     }
 
     private fun observeViewModel() {
-        viewModel.dealerships.observe(viewLifecycleOwner) { dealerships ->
-            adapter.submitList(dealerships)
+        viewModel.currentDealership.observe(viewLifecycleOwner) { dealership ->
+            dealership?.let {
+                binding.dealershipNameEditText.setText(it.name)
+                binding.dealershipAddressEditText.setText(it.address)
+                binding.dealershipContactEditText.setText("Placeholder Contact") // Placeholder for future contact field
+            }
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->

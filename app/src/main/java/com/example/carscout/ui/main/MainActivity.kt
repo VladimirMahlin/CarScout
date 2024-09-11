@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.dealershipsFragment,
+                R.id.dealershipListFragment,
                 R.id.carListFragment,
                 R.id.mapFragment,
                 R.id.profileFragment

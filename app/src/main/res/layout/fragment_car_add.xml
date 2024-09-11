@@ -12,15 +12,33 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Manufacturer Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/carManufacturerInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Manufacturer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/carManufacturerEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!-- Car Model Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/carModelInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Car Model"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carManufacturerInputLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/carModelEditText"
@@ -47,13 +65,68 @@
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Mileage Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/carMileageInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Mileage"
+            app:layout_constraintTop_toBottomOf="@id/carYearInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/carMileageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Condition Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/carConditionInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Condition"
+            app:layout_constraintTop_toBottomOf="@id/carMileageInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/carConditionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Description Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/carDescriptionInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            app:layout_constraintTop_toBottomOf="@id/carConditionInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/carDescriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:minLines="3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!-- Car Price Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/carPriceInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Price"
-            app:layout_constraintTop_toBottomOf="@id/carYearInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/carDescriptionInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp">

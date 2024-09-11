@@ -9,6 +9,8 @@ import com.example.carscout.R
 import com.example.carscout.data.model.Car
 import com.example.carscout.databinding.ItemCarBinding
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Locale
 
 class CarListAdapter(private val onItemClick: (Car) -> Unit) :
     ListAdapter<Car, CarListAdapter.CarViewHolder>(CarDiffCallback()) {
@@ -27,9 +29,10 @@ class CarListAdapter(private val onItemClick: (Car) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(car: Car) {
-            binding.carModelTextView.text = car.model
+            binding.carManufacturerModelTextView.text = "${car.manufacturer} ${car.model}"
             binding.carYearTextView.text = car.year.toString()
-            binding.carPriceTextView.text = "$${car.price}"
+            binding.carMileageTextView.text = formatMileage(car.mileage)
+            binding.carPriceTextView.text = formatPrice(car.price)
 
             val mainImageUrl = car.imageUrls.firstOrNull()
             Picasso.get()
@@ -39,6 +42,14 @@ class CarListAdapter(private val onItemClick: (Car) -> Unit) :
                 .into(binding.carImageView)
 
             binding.root.setOnClickListener { onItemClick(car) }
+        }
+
+        private fun formatMileage(mileage: Int): String {
+            return "${NumberFormat.getNumberInstance(Locale.US).format(mileage)} miles"
+        }
+
+        private fun formatPrice(price: Double): String {
+            return NumberFormat.getCurrencyInstance(Locale.US).format(price)
         }
     }
 

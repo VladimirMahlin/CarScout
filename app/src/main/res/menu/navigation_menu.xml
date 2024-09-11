@@ -4,7 +4,7 @@
         android:title="Home"
         android:icon="@drawable/ic_home" />
     <item
-        android:id="@+id/dealershipsFragment"
+        android:id="@+id/dealershipListFragment"
         android:title="Dealerships"
         android:icon="@drawable/ic_dealership" />
     <item

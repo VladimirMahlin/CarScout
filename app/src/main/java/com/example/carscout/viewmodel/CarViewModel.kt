@@ -1,13 +1,10 @@
 package com.example.carscout.viewmodel
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.carscout.data.model.Car
 import com.example.carscout.data.repository.CarRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class CarViewModel(private val repository: CarRepository) : ViewModel() {
@@ -23,6 +20,9 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    // Load all cars
     fun loadCars() {
         viewModelScope.launch {
             _loading.value = true
@@ -35,6 +35,7 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
+    // Load car by its ID
     fun loadCarById(carId: String) {
         viewModelScope.launch {
             _loading.value = true
@@ -47,35 +48,81 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
-    fun addCar(model: String, year: Int, price: Double, imageUris: List<Uri>) {
+    // Add a car with all required fields
+    fun addCar(
+        manufacturer: String,
+        model: String,
+        year: Int,
+        mileage: Int,
+        condition: String,
+        description: String,
+        price: Double,
+        imageUris: List<Uri>
+    ) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                val carId = repository.addCar(model, year, price, imageUris)
+                val carId = repository.addCar(
+                    manufacturer,
+                    model,
+                    year,
+                    mileage,
+                    condition,
+                    description,
+                    price,
+                    imageUris
+                )
                 _error.value = "Car added successfully with ID: $carId"
             } catch (e: Exception) {
                 _error.value = "Failed to add car: ${e.message}"
+            } finally {
+                _loading.value = false
             }
-            _loading.value = false
         }
     }
 
-    fun updateCar(carId: String, model: String, year: Int, price: Double) {
+    // Update an existing car
+    fun updateCar(
+        carId: String,
+        manufacturer: String,
+        model: String,
+        year: Int,
+        mileage: Int,
+        condition: String,
+        description: String,
+        price: Double
+    ) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                val success = repository.updateCar(carId, model, year, price)
+                val success = repository.updateCar(
+                    carId,
+                    manufacturer,
+                    model,
+                    year,
+                    mileage,
+                    condition,
+                    description,
+                    price
+                )
                 if (success) {
                     _error.value = "Car updated successfully"
-                    loadCarById(carId)
+                    loadCarById(carId)  // Reload the car to get updated details
                 } else {
                     _error.value = "Failed to update car"
                 }
             } catch (e: Exception) {
                 _error.value = "Failed to update car: ${e.message}"
+            } finally {
+                _loading.value = false
             }
-            _loading.value = false
         }
+    }
+
+    // Check if the current user is the author of the car listing
+    fun isCurrentUserAuthor(authorId: String): Boolean {
+        val currentUserId = auth.currentUser?.uid
+        return currentUserId == authorId
     }
 }
 

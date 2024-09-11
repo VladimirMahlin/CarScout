@@ -92,23 +92,34 @@ class CarAddFragment : Fragment() {
     }
 
     private fun saveCar() {
+        // Collecting data from input fields
+        val manufacturer = binding.carManufacturerEditText.text.toString().trim()
         val model = binding.carModelEditText.text.toString().trim()
         val year = binding.carYearEditText.text.toString().trim().toIntOrNull()
+        val mileage = binding.carMileageEditText.text.toString().trim().toIntOrNull()
+        val condition = binding.carConditionEditText.text.toString().trim()
+        val description = binding.carDescriptionEditText.text.toString().trim()
         val price = binding.carPriceEditText.text.toString().trim().toDoubleOrNull()
 
-        if (model.isEmpty() || year == null || price == null || imageUris.isEmpty()) {
+        // Validate the input fields
+        if (manufacturer.isEmpty() || model.isEmpty() || year == null || mileage == null || condition.isEmpty() || price == null || imageUris.isEmpty()) {
             showToast("Please fill out all fields and upload at least one image.")
             return
         }
 
-        viewModel.addCar(model, year, price, imageUris)
+        // Add the car through ViewModel
+        viewModel.addCar(manufacturer, model, year, mileage, condition, description, price, imageUris)
     }
 
     private fun observeViewModel() {
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             binding.loadingProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.carManufacturerInputLayout.isEnabled = !isLoading
             binding.carModelInputLayout.isEnabled = !isLoading
             binding.carYearInputLayout.isEnabled = !isLoading
+            binding.carMileageInputLayout.isEnabled = !isLoading
+            binding.carConditionInputLayout.isEnabled = !isLoading
+            binding.carDescriptionInputLayout.isEnabled = !isLoading
             binding.carPriceInputLayout.isEnabled = !isLoading
             binding.addImageButton.isEnabled = !isLoading
             binding.saveCarButton.isEnabled = !isLoading

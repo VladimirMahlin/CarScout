@@ -11,51 +11,72 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <ImageView
+            android:id="@+id/dealershipImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dealershipNameInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Dealership Name"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/dealershipImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="Dealership Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dealershipNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dealershipAddressInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Address"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/dealershipNameInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp">
+            android:hint="Dealership Address">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dealershipAddressEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveDealershipButton"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dealershipContactInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Save Dealership"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/dealershipAddressInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp" />
+            android:hint="Contact Information">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dealershipContactEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:enabled="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ProgressBar
-            android:id="@+id/loadingProgressBar"
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
