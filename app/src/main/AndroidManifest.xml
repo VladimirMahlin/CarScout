@@ -13,10 +13,6 @@
         android:theme="@style/Theme.CarScout"
         tools:targetApi="31">
         <activity
-            android:name=".activities.HomeActivity"
-            android:exported="false" />
-        <!-- SplashActivity as Launcher -->
-        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -24,10 +20,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- AuthActivity to handle login and registration -->
+        </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
-            android:exported="false" /> <!-- MainActivity as the home page after login -->
+            android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />

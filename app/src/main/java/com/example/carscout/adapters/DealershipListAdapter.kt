@@ -1,4 +1,4 @@
-package com.example.carscout.ui.adapters
+package com.example.carscout.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

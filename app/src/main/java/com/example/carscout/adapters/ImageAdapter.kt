@@ -1,4 +1,4 @@
-package com.example.carscout.ui.adapters
+package com.example.carscout.adapters
 
 import android.net.Uri
 import android.view.LayoutInflater

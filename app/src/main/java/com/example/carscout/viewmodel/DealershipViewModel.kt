@@ -1,5 +1,6 @@
 package com.example.carscout.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.carscout.data.model.Dealership
 import com.example.carscout.data.repository.DealershipRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class DealershipViewModel(private val repository: DealershipRepository) : ViewModel() {
@@ -22,6 +24,8 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
     private val _currentDealership = MutableLiveData<Dealership?>()
     val currentDealership: LiveData<Dealership?> = _currentDealership
 
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     fun loadDealerships() {
         viewModelScope.launch {
             _loading.value = true
@@ -34,14 +38,27 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
         }
     }
 
-    fun addDealership(name: String, address: String) {
+    fun addDealership(name: String, address: String, phoneNumber: String, email: String, imageUris: List<Uri>) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                val dealershipId = repository.addDealership(name, address)
+                val dealershipId = repository.addDealership(name, address, phoneNumber, email, imageUris)
                 _error.value = "Dealership added successfully with ID: $dealershipId"
             } catch (e: Exception) {
                 _error.value = "Failed to add dealership: ${e.message}"
+            }
+            _loading.value = false
+        }
+    }
+
+    fun updateDealership(dealershipId: String, name: String, address: String, phoneNumber: String, email: String) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                repository.editDealership(dealershipId, name, address, phoneNumber, email)
+                _error.value = "Dealership updated successfully"
+            } catch (e: Exception) {
+                _error.value = "Failed to update dealership: ${e.message}"
             }
             _loading.value = false
         }
@@ -57,6 +74,11 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
             }
             _loading.value = false
         }
+    }
+
+    fun isCurrentUserAuthor(authorId: String): Boolean {
+        val currentUserId = auth.currentUser?.uid
+        return currentUserId == authorId
     }
 }
 

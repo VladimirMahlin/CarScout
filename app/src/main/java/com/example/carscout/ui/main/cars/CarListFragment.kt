@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carscout.data.repository.CarRepository
 import com.example.carscout.databinding.FragmentCarListBinding
-import com.example.carscout.ui.adapters.CarListAdapter
+import com.example.carscout.adapters.CarListAdapter
 import com.example.carscout.viewmodel.CarViewModel
 import com.example.carscout.viewmodel.CarViewModelFactory
 
