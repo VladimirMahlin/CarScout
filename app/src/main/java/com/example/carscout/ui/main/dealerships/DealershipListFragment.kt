@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carscout.R
 import com.example.carscout.databinding.FragmentDealershipListBinding
-import com.example.carscout.ui.adapters.DealershipListAdapter
+import com.example.carscout.adapters.DealershipListAdapter
 import com.example.carscout.viewmodel.DealershipViewModel
 import com.example.carscout.viewmodel.DealershipViewModelFactory
 import com.example.carscout.data.repository.DealershipRepository
@@ -27,7 +27,7 @@ class DealershipListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDealershipListBinding.inflate(inflater, container, false)
         return binding.root
     }

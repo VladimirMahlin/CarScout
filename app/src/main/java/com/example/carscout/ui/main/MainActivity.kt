@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment,
                 R.id.dealershipListFragment,
                 R.id.carListFragment,
                 R.id.mapFragment,
@@ -63,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.logout -> {
                 auth.signOut()
+
                 finish()
                 true
             }
