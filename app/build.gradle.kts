@@ -56,6 +56,8 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.44")
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation(libs.androidx.core.ktx)

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarScout"
         tools:targetApi="31">
-        <activity
-            android:name=".activities.HomeActivity"
-            android:exported="false" />
-        <!-- SplashActivity as Launcher -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB1Yc4GRJcIfFPaVJe1FUJw9d3NRn2DTsY"
+            />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
@@ -24,10 +28,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- AuthActivity to handle login and registration -->
+        </activity>
         <activity
             android:name=".ui.auth.AuthActivity"
-            android:exported="false" /> <!-- MainActivity as the home page after login -->
+            android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />
