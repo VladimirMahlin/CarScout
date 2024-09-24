@@ -1,5 +1,6 @@
 package com.example.carscout.ui.main.cars
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.carscout.data.repository.CarRepository
 import com.example.carscout.databinding.FragmentCarDetailBinding
-import com.example.carscout.adapters.CarImageAdapter
 import com.example.carscout.viewmodel.CarViewModel
 import com.example.carscout.viewmodel.CarViewModelFactory
+import com.example.carscout.data.repository.CarRepository
+import com.example.carscout.adapters.ImageAdapter
+import com.example.carscout.ui.main.ImageDialogFragment
 
 class CarDetailFragment : Fragment() {
 
@@ -24,14 +26,14 @@ class CarDetailFragment : Fragment() {
     private val args: CarDetailFragmentArgs by navArgs()
 
     private var isEditing = false
-    private lateinit var imageAdapter: CarImageAdapter
+    private lateinit var imageAdapter: ImageAdapter
     private var isAuthor = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repository = CarRepository()
         val factory = CarViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory).get(CarViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[CarViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -46,6 +48,8 @@ class CarDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupImageRecyclerView()
+        enableEditing(false)
+
         binding.editSaveButton.setOnClickListener {
             if (isEditing) saveCarDetails() else enableEditing(true)
         }
@@ -55,7 +59,15 @@ class CarDetailFragment : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        imageAdapter = CarImageAdapter(emptyList())
+        imageAdapter = ImageAdapter(
+            emptyList(),
+            onDeleteClick = { position ->
+                // Handle delete image action
+            },
+            onImageClick = { uri ->
+                showImageFullScreen(uri)
+            }
+        )
         binding.carImagesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = imageAdapter
@@ -72,10 +84,19 @@ class CarDetailFragment : Fragment() {
                 binding.carConditionEditText.setText(car.condition)
                 binding.carDescriptionEditText.setText(car.description)
                 binding.carPriceEditText.setText(car.price.toString())
-                imageAdapter = CarImageAdapter(car.imageUrls)
+
+                val imageUris = car.imageUrls.map { Uri.parse(it) }
+                imageAdapter = ImageAdapter(
+                    imageUris,
+                    onDeleteClick = { position ->
+                        // Handle image delete if required
+                    },
+                    onImageClick = { uri ->
+                        showImageFullScreen(uri)
+                    }
+                )
                 binding.carImagesRecyclerView.adapter = imageAdapter
 
-                // Check if current user is the author
                 isAuthor = viewModel.isCurrentUserAuthor(car.ownerId)
                 updateEditButtonVisibility()
 
@@ -87,8 +108,14 @@ class CarDetailFragment : Fragment() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.carImagesRecyclerView.alpha = if (isLoading) 0.5f else 1.0f
             binding.editSaveButton.isEnabled = !isLoading && isAuthor
-            toggleInputFields(!isLoading)
+
+            if (isLoading) {
+                toggleInputFields(false)
+            } else {
+                enableEditing(isEditing)
+            }
         }
+
 
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -113,7 +140,7 @@ class CarDetailFragment : Fragment() {
         if (!isAuthor) return
         isEditing = enable
         toggleInputFields(enable)
-        binding.editSaveButton.text = if (enable) "Save" else "Edit" //TODO fix editing
+        binding.editSaveButton.text = if (enable) "Save" else "Edit"
     }
 
     private fun saveCarDetails() {
@@ -162,4 +189,11 @@ class CarDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun showImageFullScreen(uri: Uri) {
+        val dialog = ImageDialogFragment.newInstance(uri)
+        dialog.show(childFragmentManager, "image_dialog")
+    }
 }
+//TODO: Add image expansion on click
+//TODO: Add deleting functionality

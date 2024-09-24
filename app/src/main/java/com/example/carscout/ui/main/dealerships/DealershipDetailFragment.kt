@@ -1,5 +1,6 @@
 package com.example.carscout.ui.main.dealerships
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,8 @@ import com.example.carscout.databinding.FragmentDealershipDetailBinding
 import com.example.carscout.viewmodel.DealershipViewModel
 import com.example.carscout.viewmodel.DealershipViewModelFactory
 import com.example.carscout.data.repository.DealershipRepository
-import com.example.carscout.adapters.DealershipImageAdapter
+import com.example.carscout.adapters.ImageAdapter
+import com.example.carscout.ui.main.ImageDialogFragment
 
 class DealershipDetailFragment : Fragment() {
 
@@ -24,7 +26,7 @@ class DealershipDetailFragment : Fragment() {
     private val args: DealershipDetailFragmentArgs by navArgs()
 
     private var isEditing = false
-    private lateinit var imageAdapter: DealershipImageAdapter
+    private lateinit var imageAdapter: ImageAdapter
     private var isAuthor = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +57,23 @@ class DealershipDetailFragment : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        imageAdapter = DealershipImageAdapter(emptyList())
+        imageAdapter = ImageAdapter(
+            emptyList(),
+            onImageClick = { uri ->
+                showImageFullScreen(uri)
+            }
+        )
         binding.dealershipImagesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = imageAdapter
         }
     }
+
+    private fun showImageFullScreen(uri: Uri) {
+        val dialog = ImageDialogFragment.newInstance(uri)
+        dialog.show(childFragmentManager, "image_dialog")
+    }
+
 
     private fun observeViewModel() {
         viewModel.currentDealership.observe(viewLifecycleOwner) { dealership ->
@@ -69,10 +82,16 @@ class DealershipDetailFragment : Fragment() {
                 binding.dealershipAddressEditText.setText(dealership.address)
                 binding.dealershipPhoneEditText.setText(dealership.phoneNumber)
                 binding.dealershipEmailEditText.setText(dealership.email)
-                imageAdapter = DealershipImageAdapter(dealership.imageUrls)
+
+                val imageUris = dealership.imageUrls.map { Uri.parse(it) }
+                imageAdapter = ImageAdapter(
+                    imageUris,
+                    onImageClick = { uri ->
+                        showImageFullScreen(uri)
+                    }
+                )
                 binding.dealershipImagesRecyclerView.adapter = imageAdapter
 
-                // Check if current user is the author
                 isAuthor = viewModel.isCurrentUserAuthor(dealership.ownerId)
                 updateEditButtonVisibility()
 
@@ -141,3 +160,5 @@ class DealershipDetailFragment : Fragment() {
         _binding = null
     }
 }
+//TODO: Add image expansion on click
+//TODO: Add deleting functionality

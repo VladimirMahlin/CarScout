@@ -22,7 +22,6 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    // Load all cars
     fun loadCars() {
         viewModelScope.launch {
             _loading.value = true
@@ -35,7 +34,6 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
-    // Load car by its ID
     fun loadCarById(carId: String) {
         viewModelScope.launch {
             _loading.value = true
@@ -48,7 +46,6 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
-    // Add a car with all required fields
     fun addCar(
         manufacturer: String,
         model: String,
@@ -81,7 +78,6 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
-    // Update an existing car
     fun updateCar(
         carId: String,
         manufacturer: String,
@@ -107,7 +103,7 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
                 )
                 if (success) {
                     _error.value = "Car updated successfully"
-                    loadCarById(carId)  // Reload the car to get updated details
+                    loadCarById(carId)
                 } else {
                     _error.value = "Failed to update car"
                 }
@@ -119,7 +115,6 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
-    // Check if the current user is the author of the car listing
     fun isCurrentUserAuthor(authorId: String): Boolean {
         val currentUserId = auth.currentUser?.uid
         return currentUserId == authorId

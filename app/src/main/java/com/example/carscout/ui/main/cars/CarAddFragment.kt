@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carscout.data.repository.CarRepository
 import com.example.carscout.databinding.FragmentCarAddBinding
 import com.example.carscout.adapters.ImageAdapter
+import com.example.carscout.ui.main.ImageDialogFragment
 import com.example.carscout.viewmodel.CarViewModel
 import com.example.carscout.viewmodel.CarViewModelFactory
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -54,10 +55,16 @@ class CarAddFragment : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        imageAdapter = ImageAdapter(imageUris) { position ->
-            imageUris.removeAt(position)
-            imageAdapter.notifyItemRemoved(position)
-        }
+        imageAdapter = ImageAdapter(
+            imageUris,
+            onDeleteClick = { position ->
+                imageUris.removeAt(position)
+                imageAdapter.notifyItemRemoved(position)
+            },
+            onImageClick = { uri ->
+                showImageFullScreen(uri)
+            }
+        )
 
         binding.imageRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -136,6 +143,11 @@ class CarAddFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showImageFullScreen(uri: Uri) {
+        val dialog = ImageDialogFragment.newInstance(uri)
+        dialog.show(childFragmentManager, "image_dialog")
     }
 
     override fun onDestroyView() {

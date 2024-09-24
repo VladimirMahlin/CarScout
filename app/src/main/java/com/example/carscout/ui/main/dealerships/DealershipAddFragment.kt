@@ -17,6 +17,7 @@ import com.example.carscout.viewmodel.DealershipViewModel
 import com.example.carscout.viewmodel.DealershipViewModelFactory
 import com.example.carscout.data.repository.DealershipRepository
 import com.example.carscout.adapters.ImageAdapter
+import com.example.carscout.ui.main.ImageDialogFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 class DealershipAddFragment : Fragment() {
@@ -54,10 +55,16 @@ class DealershipAddFragment : Fragment() {
     }
 
     private fun setupImageRecyclerView() {
-        imageAdapter = ImageAdapter(imageUris) { position ->
-            imageUris.removeAt(position)
-            imageAdapter.notifyItemRemoved(position)
-        }
+        imageAdapter = ImageAdapter(
+            imageUris,
+            onDeleteClick = { position ->
+                imageUris.removeAt(position)
+                imageAdapter.notifyItemRemoved(position)
+            },
+            onImageClick = { uri ->
+                showImageFullScreen(uri)
+            }
+        )
 
         binding.imageRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -127,6 +134,11 @@ class DealershipAddFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showImageFullScreen(uri: Uri) {
+        val dialog = ImageDialogFragment.newInstance(uri)
+        dialog.show(childFragmentManager, "image_dialog")
     }
 
     override fun onDestroyView() {

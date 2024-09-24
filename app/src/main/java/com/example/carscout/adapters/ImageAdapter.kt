@@ -10,7 +10,8 @@ import com.squareup.picasso.Picasso
 
 class ImageAdapter(
     private val imageUris: List<Uri>,
-    private val onDeleteClick: (Int) -> Unit
+    private val onDeleteClick: ((Int) -> Unit)? = null,
+    private val onImageClick: ((Uri) -> Unit)? = null
 ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -27,7 +28,11 @@ class ImageAdapter(
     inner class ImageViewHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.deleteButton.setOnClickListener {
-                onDeleteClick(adapterPosition)
+                onDeleteClick?.invoke(adapterPosition)
+            }
+            binding.imageView.setOnClickListener {
+                val uri = imageUris[adapterPosition]
+                onImageClick?.invoke(uri)
             }
         }
 

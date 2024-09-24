@@ -75,4 +75,4 @@ class DealershipListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+} //FIXME: Fix image showing

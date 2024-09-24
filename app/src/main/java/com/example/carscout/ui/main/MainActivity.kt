@@ -1,5 +1,6 @@
 package com.example.carscout.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.carscout.R
 import com.example.carscout.databinding.ActivityMainBinding
+import com.example.carscout.ui.auth.AuthActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -47,6 +49,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.logout -> {
                     auth.signOut()
 
+                    val intent = Intent(this, AuthActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+
                     true
                 }
                 else -> {
@@ -56,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
