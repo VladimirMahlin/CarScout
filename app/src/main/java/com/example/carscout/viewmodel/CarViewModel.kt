@@ -115,9 +115,48 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         }
     }
 
+    fun deleteCar(carId: String) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                repository.deleteCar(carId)
+                _error.value = "Car deleted successfully"
+            } catch (e: Exception) {
+                _error.value = "Failed to delete car: ${e.message}"
+            }
+            _loading.value = false
+        }
+    }
+
     fun isCurrentUserAuthor(authorId: String): Boolean {
         val currentUserId = auth.currentUser?.uid
         return currentUserId == authorId
+    }
+
+    fun filterCars(manufacturer: String, minPrice: Double?, maxPrice: Double?) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                var filteredCars = repository.getCars()  // Fetch all cars
+
+                if (manufacturer != "All") {
+                    filteredCars = filteredCars.filter { it.manufacturer == manufacturer }
+                }
+
+                if (minPrice != null) {
+                    filteredCars = filteredCars.filter { it.price >= minPrice }
+                }
+
+                if (maxPrice != null) {
+                    filteredCars = filteredCars.filter { it.price <= maxPrice }
+                }
+
+                _cars.value = filteredCars
+            } catch (e: Exception) {
+                _error.value = "Failed to filter cars: ${e.message}"
+            }
+            _loading.value = false
+        }
     }
 }
 

@@ -77,6 +77,14 @@ class CarRepository {
         }
     }
 
+    suspend fun deleteCar(carId: String): Void {
+        return try {
+            firestore.collection("listings").document(carId).delete().await()
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
     private suspend fun uploadImages(imageUris: List<Uri>): List<String> {
         val currentUser = auth.currentUser ?: throw IllegalStateException("User must be logged in")
         return imageUris.mapIndexed { index, uri ->

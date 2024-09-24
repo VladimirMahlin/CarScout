@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carscout.databinding.FragmentCarDetailBinding
@@ -54,6 +56,9 @@ class CarDetailFragment : Fragment() {
             if (isEditing) saveCarDetails() else enableEditing(true)
         }
 
+        binding.deleteButton.setOnClickListener {
+            deleteCar()
+        }
         observeViewModel()
         viewModel.loadCarById(args.carId)
     }
@@ -61,9 +66,6 @@ class CarDetailFragment : Fragment() {
     private fun setupImageRecyclerView() {
         imageAdapter = ImageAdapter(
             emptyList(),
-            onDeleteClick = { position ->
-                // Handle delete image action
-            },
             onImageClick = { uri ->
                 showImageFullScreen(uri)
             }
@@ -88,9 +90,6 @@ class CarDetailFragment : Fragment() {
                 val imageUris = car.imageUrls.map { Uri.parse(it) }
                 imageAdapter = ImageAdapter(
                     imageUris,
-                    onDeleteClick = { position ->
-                        // Handle image delete if required
-                    },
                     onImageClick = { uri ->
                         showImageFullScreen(uri)
                     }
@@ -124,6 +123,7 @@ class CarDetailFragment : Fragment() {
 
     private fun updateEditButtonVisibility() {
         binding.editSaveButton.visibility = if (isAuthor) View.VISIBLE else View.GONE
+        binding.deleteButton.visibility = if (isAuthor) View.VISIBLE else View.GONE
     }
 
     private fun toggleInputFields(isEnabled: Boolean) {
@@ -183,6 +183,24 @@ class CarDetailFragment : Fragment() {
             price
         )
         enableEditing(false)
+    }
+
+    private fun deleteCar() {
+        if (!isAuthor) {
+            Toast.makeText(requireContext(), "You are not authorized to delete this listing", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Delete Car")
+            .setMessage("Are you sure you want to delete this car?")
+            .setPositiveButton("Delete") { _, _ ->
+                viewModel.deleteCar(args.carId)
+                findNavController().navigateUp()
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+        dialog.show()
     }
 
     override fun onDestroyView() {
