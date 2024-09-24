@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Toggle Button for Filters -->
         <Button
             android:id="@+id/toggleFilterButton"
             android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Collapsible Filter Panel -->
         <LinearLayout
             android:id="@+id/filterPanel"
             android:layout_width="0dp"
@@ -33,19 +31,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Manufacturer Filter -->
             <Spinner
                 android:id="@+id/manufacturerSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- Price Range Filter -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Min Price Input -->
                 <EditText
                     android:id="@+id/minPriceEditText"
                     android:layout_width="0dp"
@@ -58,7 +53,6 @@
                     app:layout_constraintEnd_toStartOf="@id/maxPriceEditText"
                     app:layout_constraintWidth_percent="0.5"/>
 
-                <!-- Max Price Input -->
                 <EditText
                     android:id="@+id/maxPriceEditText"
                     android:layout_width="0dp"
@@ -72,32 +66,30 @@
                     app:layout_constraintWidth_percent="0.5"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Apply Filter Button and Reset Filter Button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp">
 
-                <!-- Apply Filter Button -->
                 <Button
                     android:id="@+id/applyFilterButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
                     android:text="Apply Filter"/>
 
-                <!-- Reset Filter Button -->
                 <Button
                     android:id="@+id/resetFilterButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="4dp"
                     android:text="Reset Filter"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- RecyclerView and ProgressBar below the filter panel -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/carListRecyclerView"
             android:layout_width="0dp"

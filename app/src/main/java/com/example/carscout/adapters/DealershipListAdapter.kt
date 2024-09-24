@@ -36,7 +36,7 @@ class DealershipListAdapter(private val onItemClick: (Dealership) -> Unit) :
             val mainImageUrl = dealership.imageUrls.firstOrNull()
             Picasso.get()
                 .load(mainImageUrl)
-                .placeholder(R.drawable.placeholder) // Replace with your placeholder drawable
+                .placeholder(R.drawable.dealership_placeholder) // Replace with your placeholder drawable
                 .error(R.drawable.error) // Replace with your error drawable
                 .into(binding.dealershipImageView)
 

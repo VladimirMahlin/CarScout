@@ -37,7 +37,7 @@ class CarListAdapter(private val onItemClick: (Car) -> Unit) :
             val mainImageUrl = car.imageUrls.firstOrNull()
             Picasso.get()
                 .load(mainImageUrl)
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.drawable.car_placeholder)
                 .error(R.drawable.error)
                 .into(binding.carImageView)
 

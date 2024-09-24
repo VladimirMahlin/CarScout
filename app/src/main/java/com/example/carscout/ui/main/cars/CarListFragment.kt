@@ -92,8 +92,15 @@ class CarListFragment : Fragment() {
 
 
     private fun setupManufacturerSpinner() {
-        // Populate spinner with car manufacturer options
-        val manufacturers = listOf("All", "Toyota", "Ford", "Honda", "BMW") // Add more as needed
+        val manufacturers = listOf(
+            "All", "Toyota", "Ford", "Honda", "BMW", "Mercedes-Benz", "Audi", "Chevrolet",
+            "Nissan", "Volkswagen", "Hyundai", "Kia", "Subaru", "Mazda", "Lexus", "Jeep",
+            "Dodge", "Ram", "GMC", "Tesla", "Porsche", "Ferrari", "Lamborghini", "Jaguar",
+            "Land Rover", "Volvo", "Mitsubishi", "Peugeot", "Suzuki", "Acura", "Chrysler",
+            "Buick", "Infiniti", "Lincoln", "Alfa Romeo", "Fiat", "Bentley", "Aston Martin",
+            "Maserati", "Genesis", "Rolls-Royce", "Citroën", "Saab", "Renault", "Bugatti",
+            "McLaren", "Mini", "Smart"
+        )
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, manufacturers)
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.manufacturerSpinner.adapter = adapter

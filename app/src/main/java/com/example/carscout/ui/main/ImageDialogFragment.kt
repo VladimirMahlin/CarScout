@@ -1,7 +1,6 @@
 package com.example.carscout.ui.main
 
 import android.app.Dialog
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
