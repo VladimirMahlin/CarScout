@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <!-- ImageView for displaying the image -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -17,7 +16,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Button for deleting the image -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

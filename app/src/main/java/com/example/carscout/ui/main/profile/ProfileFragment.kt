@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
     private fun loadUserProfile() {
         binding.loadingProgressBar.visibility = View.VISIBLE
         setContentVisibility(View.GONE)
-        setInteractionsEnabled(false) //TODO: Add image upload
+        setInteractionsEnabled(false)
 
         val userId = auth.currentUser?.uid
         userId?.let {
