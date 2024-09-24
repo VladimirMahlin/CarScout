@@ -3,6 +3,9 @@ package com.example.carscout.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -13,6 +16,8 @@ import com.example.carscout.databinding.ActivityMainBinding
 import com.example.carscout.ui.auth.AuthActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
 
+        // Load user info in the navigation header
+        updateNavHeader()
+
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout -> {
@@ -63,7 +71,41 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    private fun updateNavHeader() {
+        val navView: NavigationView = binding.navigationView
+        val headerView: View = navView.getHeaderView(0)
+
+        // Access header elements
+        val profileNameTextView: TextView = headerView.findViewById(R.id.profile_name)
+        val profileEmailTextView: TextView = headerView.findViewById(R.id.profile_email)
+        val profileImageView: ImageView = headerView.findViewById(R.id.profile_image)
+
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.let {
+            profileEmailTextView.text = it.email
+
+            // Assuming user name and avatar URL are stored in Firestore under the user's document
+            val firestore = FirebaseFirestore.getInstance()
+            firestore.collection("users").document(it.uid).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val userName = document.getString("name") ?: "User"
+                        val avatarUrl = document.getString("avatarUrl")
+
+                        profileNameTextView.text = userName
+
+                        // Load the profile image using Picasso or Glide
+                        if (!avatarUrl.isNullOrEmpty()) {
+                            Picasso.get()
+                                .load(avatarUrl)
+                                .placeholder(R.drawable.ic_person) // Use a default placeholder
+                                .into(profileImageView)
+                        }
+                    }
+                }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

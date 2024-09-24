@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.carscout.databinding.FragmentMapBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -107,18 +108,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
     }
 
     private fun showDealershipDialog(dealership: Dealership) {
-        // Создаем диалог
         val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
             .setTitle(dealership.name)
-            .setMessage("Адрес: ${dealership.address}")
-            .setPositiveButton("Перейти") { dialog, which ->
+            .setMessage("Address: ${dealership.address}")
+            .setPositiveButton("Go to") { dialog, which ->
                 // Переход на страницу автосалона
-                val intent = Intent(requireContext(), DealershipDetailActivity::class.java)
-                intent.putExtra("DEALERSHIP_NAME", dealership.name)
-                intent.putExtra("DEALERSHIP_ADDRESS", dealership.address)
-                startActivity(intent)
+                val action = MapFragmentDirections.actionMapFragmentToDealershipDetailFragment(dealershipId = dealership.id)
+                findNavController().navigate(action)
             }
-            .setNegativeButton("Закрыть", null)
+            .setNegativeButton("Close", null)
             .create()
 
         dialog.show()
@@ -212,6 +210,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             .addOnSuccessListener { documents ->
                 val dealerships = documents.map { document ->
                     Dealership(
+                        id = document.id,
                         name = document.getString("name") ?: "",
                         address = document.getString("address") ?: ""
                     )

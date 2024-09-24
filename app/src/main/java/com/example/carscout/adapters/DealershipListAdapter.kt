@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.carscout.R
 import com.example.carscout.data.model.Dealership
 import com.example.carscout.databinding.ItemDealershipBinding
+import com.squareup.picasso.Picasso
 
 class DealershipListAdapter(private val onItemClick: (Dealership) -> Unit) :
     ListAdapter<Dealership, DealershipListAdapter.DealershipViewHolder>(DealershipDiffCallback()) {
@@ -25,9 +27,20 @@ class DealershipListAdapter(private val onItemClick: (Dealership) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dealership: Dealership) {
+            // Set dealership name, address, and contact info
             binding.dealershipNameTextView.text = dealership.name
             binding.dealershipAddressTextView.text = dealership.address
+            binding.dealershipContactTextView.text = dealership.phoneNumber
 
+            // Load the first image from imageUrls if available
+            val mainImageUrl = dealership.imageUrls.firstOrNull()
+            Picasso.get()
+                .load(mainImageUrl)
+                .placeholder(R.drawable.placeholder) // Replace with your placeholder drawable
+                .error(R.drawable.error) // Replace with your error drawable
+                .into(binding.dealershipImageView)
+
+            // Set click listener to handle item clicks
             binding.root.setOnClickListener { onItemClick(dealership) }
         }
     }

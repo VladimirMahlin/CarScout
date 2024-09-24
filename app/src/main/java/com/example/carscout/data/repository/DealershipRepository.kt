@@ -17,7 +17,9 @@ class DealershipRepository {
     }
 
     suspend fun getDealershipById(dealershipId: String): Dealership? {
-        return firestore.collection("dealerships").document(dealershipId).get().await()
+        return firestore.collection("dealerships") // Ensure collection is referenced properly
+            .document(dealershipId) // Reference the correct document inside the collection
+            .get().await()
             .toObject(Dealership::class.java)
     }
 

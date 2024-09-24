@@ -195,5 +195,3 @@ class CarDetailFragment : Fragment() {
         dialog.show(childFragmentManager, "image_dialog")
     }
 }
-//TODO: Add image expansion on click
-//TODO: Add deleting functionality

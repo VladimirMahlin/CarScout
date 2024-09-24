@@ -90,7 +90,15 @@
         android:id="@+id/mapFragment"
         android:name="com.example.carscout.ui.main.map.MapFragment"
         android:label="Map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+
+        <action
+            android:id="@+id/action_mapFragment_to_dealershipDetailFragment"
+            app:destination="@id/dealershipDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+
+    </fragment>
 
     <!-- Profile Fragment -->
     <fragment

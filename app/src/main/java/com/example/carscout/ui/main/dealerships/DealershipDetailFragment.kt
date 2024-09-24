@@ -160,5 +160,3 @@ class DealershipDetailFragment : Fragment() {
         _binding = null
     }
 }
-//TODO: Add image expansion on click
-//TODO: Add deleting functionality

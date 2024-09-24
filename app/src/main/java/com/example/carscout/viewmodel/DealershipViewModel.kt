@@ -71,6 +71,8 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
                 _currentDealership.value = repository.getDealershipById(dealershipId)
             } catch (e: Exception) {
                 _error.value = "Failed to load dealership details: ${e.message}"
+                //print the error
+                e.printStackTrace()
             }
             _loading.value = false
         }
