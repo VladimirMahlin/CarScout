@@ -82,6 +82,7 @@ class DealershipDetailFragment : Fragment() {
                 binding.dealershipAddressEditText.setText(dealership.address)
                 binding.dealershipPhoneEditText.setText(dealership.phoneNumber)
                 binding.dealershipEmailEditText.setText(dealership.email)
+                binding.dealershipInfoEditText.setText(dealership.info)
 
                 val imageUris = dealership.imageUrls.map { Uri.parse(it) }
                 imageAdapter = ImageAdapter(
@@ -120,6 +121,7 @@ class DealershipDetailFragment : Fragment() {
         binding.dealershipAddressInputLayout.isEnabled = isEnabled && isAuthor
         binding.dealershipPhoneInputLayout.isEnabled = isEnabled && isAuthor
         binding.dealershipEmailInputLayout.isEnabled = isEnabled && isAuthor
+        binding.dealershipInfoInputLayout.isEnabled = isEnabled && isAuthor
     }
 
     private fun enableEditing(enable: Boolean) {
@@ -139,6 +141,7 @@ class DealershipDetailFragment : Fragment() {
         val address = binding.dealershipAddressEditText.text.toString().trim()
         val phoneNumber = binding.dealershipPhoneEditText.text.toString().trim()
         val email = binding.dealershipEmailEditText.text.toString().trim()
+        val info = binding.dealershipInfoEditText.text.toString().trim()
 
         if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty() || email.isEmpty()) {
             Toast.makeText(requireContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
@@ -150,7 +153,8 @@ class DealershipDetailFragment : Fragment() {
             name,
             address,
             phoneNumber,
-            email
+            email,
+            info
         )
         enableEditing(false)
     }

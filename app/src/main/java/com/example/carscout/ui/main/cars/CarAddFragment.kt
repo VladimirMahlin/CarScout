@@ -95,7 +95,6 @@ class CarAddFragment : Fragment() {
     }
 
     private fun saveCar() {
-        // Collecting data from input fields
         val manufacturer = binding.carManufacturerEditText.text.toString().trim()
         val model = binding.carModelEditText.text.toString().trim()
         val year = binding.carYearEditText.text.toString().trim().toIntOrNull()
@@ -104,13 +103,11 @@ class CarAddFragment : Fragment() {
         val description = binding.carDescriptionEditText.text.toString().trim()
         val price = binding.carPriceEditText.text.toString().trim().toDoubleOrNull()
 
-        // Validate the input fields
         if (manufacturer.isEmpty() || model.isEmpty() || year == null || mileage == null || condition.isEmpty() || price == null || imageUris.isEmpty()) {
             showToast("Please fill out all fields and upload at least one image.")
             return
         }
 
-        // Add the car through ViewModel
         viewModel.addCar(manufacturer, model, year, mileage, condition, description, price, imageUris)
     }
 

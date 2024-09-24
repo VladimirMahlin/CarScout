@@ -67,8 +67,22 @@ class LoginFragment : Fragment() {
         }
 
         forgotPasswordTextView.setOnClickListener {
-            Toast.makeText(context, "Forgot Password clicked", Toast.LENGTH_SHORT).show()
+            val email = emailEditText.text.toString().trim()
+
+            if (email.isNotEmpty()) {
+                auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(context, "Password reset email sent", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            } else {
+                Toast.makeText(context, "Please enter your email", Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
 
     private fun navigateToMainActivity() {

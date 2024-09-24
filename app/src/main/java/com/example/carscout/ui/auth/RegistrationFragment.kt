@@ -48,7 +48,7 @@ class RegistrationFragment : Fragment() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
-            val isBusiness = businessCheckBox.isChecked  // Get the checkbox status
+            val isBusiness = businessCheckBox.isChecked
 
             if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
                 if (password == confirmPassword) {

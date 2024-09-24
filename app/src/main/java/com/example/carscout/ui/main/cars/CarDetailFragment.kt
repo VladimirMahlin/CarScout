@@ -87,7 +87,6 @@ class CarDetailFragment : Fragment() {
                 binding.carDescriptionEditText.setText(car.description)
                 binding.carPriceEditText.setText(car.price.toString())
 
-                // Set the TextViews for display mode
                 binding.carManufacturerTextView.text = car.manufacturer
                 binding.carModelTextView.text = car.model
                 binding.carYearTextView.text = car.year.toString()
@@ -135,41 +134,33 @@ class CarDetailFragment : Fragment() {
     }
 
     private fun toggleInputFields(isEnabled: Boolean) {
-        // Show or hide TextViews (display mode) and EditTexts (edit mode)
         val visibilityInEditMode = if (isEnabled) View.VISIBLE else View.GONE
         val visibilityInViewMode = if (isEnabled) View.GONE else View.VISIBLE
 
-        // Toggle Car Manufacturer
         binding.carManufacturerTextView.visibility = visibilityInViewMode
         binding.carManufacturerValueTextView.visibility = visibilityInViewMode
         binding.carManufacturerInputLayout.visibility = visibilityInEditMode
 
-        // Toggle Car Model
         binding.carModelTextView.visibility = visibilityInViewMode
         binding.carModelValueTextView.visibility = visibilityInViewMode
         binding.carModelInputLayout.visibility = visibilityInEditMode
 
-        // Toggle Year
         binding.carYearTextView.visibility = visibilityInViewMode
         binding.carYearValueTextView.visibility = visibilityInViewMode
         binding.carYearInputLayout.visibility = visibilityInEditMode
 
-        // Toggle Mileage
         binding.carMileageTextView.visibility = visibilityInViewMode
         binding.carMileageValueTextView.visibility = visibilityInViewMode
         binding.carMileageInputLayout.visibility = visibilityInEditMode
 
-        // Toggle Condition
         binding.carConditionTextView.visibility = visibilityInViewMode
         binding.carConditionValueTextView.visibility = visibilityInViewMode
         binding.carConditionInputLayout.visibility = visibilityInEditMode
 
-        // Toggle Description
         binding.carDescriptionTextView.visibility = visibilityInViewMode
         binding.carDescriptionValueTextView.visibility = visibilityInViewMode
         binding.carDescriptionInputLayout.visibility = visibilityInEditMode
 
-        // Toggle Price
         binding.carPriceTextView.visibility = visibilityInViewMode
         binding.carPriceValueTextView.visibility = visibilityInViewMode
         binding.carPriceInputLayout.visibility = visibilityInEditMode

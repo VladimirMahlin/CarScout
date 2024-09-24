@@ -27,20 +27,17 @@ class DealershipListAdapter(private val onItemClick: (Dealership) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dealership: Dealership) {
-            // Set dealership name, address, and contact info
             binding.dealershipNameTextView.text = dealership.name
             binding.dealershipAddressTextView.text = dealership.address
             binding.dealershipContactTextView.text = dealership.phoneNumber
 
-            // Load the first image from imageUrls if available
             val mainImageUrl = dealership.imageUrls.firstOrNull()
             Picasso.get()
                 .load(mainImageUrl)
-                .placeholder(R.drawable.dealership_placeholder) // Replace with your placeholder drawable
-                .error(R.drawable.error) // Replace with your error drawable
+                .placeholder(R.drawable.dealership_placeholder)
+                .error(R.drawable.error)
                 .into(binding.dealershipImageView)
 
-            // Set click listener to handle item clicks
             binding.root.setOnClickListener { onItemClick(dealership) }
         }
     }

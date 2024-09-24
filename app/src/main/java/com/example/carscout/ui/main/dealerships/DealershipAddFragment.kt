@@ -99,13 +99,14 @@ class DealershipAddFragment : Fragment() {
         val address = binding.dealershipAddressEditText.text.toString().trim()
         val phoneNumber = binding.dealershipPhoneEditText.text.toString().trim()
         val email = binding.dealershipEmailEditText.text.toString().trim()
+        val info = binding.dealershipInfoEditText.text.toString().trim()
 
-        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || imageUris.isEmpty()) {
+        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty() || email.isEmpty() || info.isEmpty() || imageUris.isEmpty()) {
             showToast("Please fill out all fields and upload at least one image.")
             return
         }
 
-        viewModel.addDealership(name, address, phoneNumber, email, imageUris)
+        viewModel.addDealership(name, address, phoneNumber, email, info, imageUris)
     }
 
     private fun observeViewModel() {
@@ -115,6 +116,7 @@ class DealershipAddFragment : Fragment() {
             binding.dealershipAddressInputLayout.isEnabled = !isLoading
             binding.dealershipPhoneInputLayout.isEnabled = !isLoading
             binding.dealershipEmailInputLayout.isEnabled = !isLoading
+            binding.dealershipInfoInputLayout.isEnabled = !isLoading
             binding.addImageButton.isEnabled = !isLoading
             binding.saveDealershipButton.isEnabled = !isLoading
             binding.imageRecyclerView.alpha = if (isLoading) 0.5f else 1.0f

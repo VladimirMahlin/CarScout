@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.map.MapFragment">
 
-    <!-- Map Fragment -->
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -17,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Plus Button (Zoom In) -->
     <ImageButton
         android:id="@+id/plus_button"
         android:layout_width="50dp"
@@ -31,7 +29,6 @@
         app:layout_constraintBottom_toTopOf="@id/minus_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Minus Button (Zoom Out) -->
     <ImageButton
         android:id="@+id/minus_button"
         android:layout_width="50dp"

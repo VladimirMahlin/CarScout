@@ -45,23 +45,23 @@ class CarListFragment : Fragment() {
 
         setupRecyclerView()
         setupAddCarButton()
-        setupManufacturerSpinner()  // Setup spinner
-        setupFilterButton()         // Setup filter button
-        setupResetFilterButton()    // Setup reset button
-        setupToggleFilterButton()   // Setup toggle button for filter panel
+        setupManufacturerSpinner()
+        setupFilterButton()
+        setupResetFilterButton()
+        setupToggleFilterButton()
+        setupUserListingsButton()
         observeViewModel()
 
-        viewModel.loadCars()  // Load all cars initially
+        viewModel.loadCars()
     }
+
 
     private fun setupResetFilterButton() {
         binding.resetFilterButton.setOnClickListener {
-            // Reset filters to default values
-            binding.manufacturerSpinner.setSelection(0)  // Reset the spinner to the first option
-            binding.minPriceEditText.text.clear()  // Clear min price input
-            binding.maxPriceEditText.text.clear()  // Clear max price input
+            binding.manufacturerSpinner.setSelection(0)
+            binding.minPriceEditText.text.clear()
+            binding.maxPriceEditText.text.clear()
 
-            // Reload all cars
             viewModel.loadCars()
         }
     }
@@ -72,13 +72,11 @@ class CarListFragment : Fragment() {
 
         binding.toggleFilterButton.setOnClickListener {
             if (isFilterPanelVisible) {
-                // Slide up animation to hide
                 binding.filterPanel.animate().alpha(0f).translationY(-binding.filterPanel.height.toFloat()).withEndAction {
                     binding.filterPanel.visibility = View.GONE
                 }
                 binding.toggleFilterButton.text = "Show Filters"
             } else {
-                // Slide down animation to show
                 binding.filterPanel.visibility = View.VISIBLE
                 binding.filterPanel.alpha = 0f
                 binding.filterPanel.translationY = -binding.filterPanel.height.toFloat()
@@ -112,7 +110,6 @@ class CarListFragment : Fragment() {
             val minPrice = binding.minPriceEditText.text.toString().toDoubleOrNull()
             val maxPrice = binding.maxPriceEditText.text.toString().toDoubleOrNull()
 
-            // Apply the filters
             viewModel.filterCars(selectedManufacturer, minPrice, maxPrice)
         }
     }
@@ -133,6 +130,14 @@ class CarListFragment : Fragment() {
     private fun setupAddCarButton() {
         binding.addCarButton.setOnClickListener {
             findNavController().navigate(CarListFragmentDirections.actionCarListFragmentToCarAddFragment())
+        }
+    }
+
+    private fun setupUserListingsButton() {
+        binding.userListingsButton.setOnClickListener {
+            val currentUserId = viewModel.getCurrentUserId()
+
+            viewModel.filterCarsByUser(currentUserId)
         }
     }
 

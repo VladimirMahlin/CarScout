@@ -8,6 +8,7 @@ data class Dealership(
     val address: String = "",
     val phoneNumber: String = "",
     val email: String = "",
+    val info: String = "",
     val imageUrls: List<String> = listOf(),
     val ownerId: String = "",
     val createdAt: Long = 0

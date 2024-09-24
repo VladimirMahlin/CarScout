@@ -38,11 +38,11 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
         }
     }
 
-    fun addDealership(name: String, address: String, phoneNumber: String, email: String, imageUris: List<Uri>) {
+    fun addDealership(name: String, address: String, phoneNumber: String, email: String, info: String, imageUris: List<Uri>) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                val dealershipId = repository.addDealership(name, address, phoneNumber, email, imageUris)
+                val dealershipId = repository.addDealership(name, address, phoneNumber, email, info, imageUris)
                 _error.value = "Dealership added successfully with ID: $dealershipId"
             } catch (e: Exception) {
                 _error.value = "Failed to add dealership: ${e.message}"
@@ -51,11 +51,11 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
         }
     }
 
-    fun updateDealership(dealershipId: String, name: String, address: String, phoneNumber: String, email: String) {
+    fun updateDealership(dealershipId: String, name: String, address: String, phoneNumber: String, email: String, info: String) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                repository.editDealership(dealershipId, name, address, phoneNumber, email)
+                repository.editDealership(dealershipId, name, address, phoneNumber, email, info)
                 _error.value = "Dealership updated successfully"
             } catch (e: Exception) {
                 _error.value = "Failed to update dealership: ${e.message}"
@@ -71,7 +71,6 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
                 _currentDealership.value = repository.getDealershipById(dealershipId)
             } catch (e: Exception) {
                 _error.value = "Failed to load dealership details: ${e.message}"
-                //print the error
                 e.printStackTrace()
             }
             _loading.value = false

@@ -133,11 +133,15 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         return currentUserId == authorId
     }
 
+    fun getCurrentUserId(): String? {
+        return auth.currentUser?.uid
+    }
+
     fun filterCars(manufacturer: String, minPrice: Double?, maxPrice: Double?) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                var filteredCars = repository.getCars()  // Fetch all cars
+                var filteredCars = repository.getCars()
 
                 if (manufacturer != "All") {
                     filteredCars = filteredCars.filter { it.manufacturer == manufacturer }
@@ -158,6 +162,23 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
             _loading.value = false
         }
     }
+
+    fun filterCarsByUser(userId: String?) {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                val allCars = repository.getCars()
+
+                val userCars = allCars.filter { it.ownerId == userId }
+
+                _cars.value = userCars
+            } catch (e: Exception) {
+                _error.value = "Failed to filter cars by user: ${e.message}"
+            }
+            _loading.value = false
+        }
+    }
+
 }
 
 class CarViewModelFactory(private val repository: CarRepository) : ViewModelProvider.Factory {

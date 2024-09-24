@@ -87,6 +87,15 @@
                     android:layout_weight="1"
                     android:layout_marginStart="4dp"
                     android:text="Reset Filter"/>
+
+                <Button
+                    android:id="@+id/userListingsButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="Show My Listings"/>
+
             </LinearLayout>
         </LinearLayout>
 

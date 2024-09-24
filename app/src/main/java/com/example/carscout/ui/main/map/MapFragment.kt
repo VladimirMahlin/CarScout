@@ -3,8 +3,6 @@ package com.example.carscout.ui.main.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.LOCALE_SERVICE
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,12 +24,11 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import java.util.*
 
 class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
@@ -46,17 +43,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
 
-        // Инициализация карты
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
 
 
-        // Обработка кнопок зума
         binding.plusButton.setOnClickListener {
             mMap.animateCamera(CameraUpdateFactory.zoomIn())
         }
@@ -75,11 +70,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         mMap.isBuildingsEnabled = true
         mMap.isIndoorEnabled = true
 
-        // Проверяем разрешение и перемещаем камеру к текущему местоположению
         checkLocationPermission()
         moveToCurrentLocation()
 
-        // Загрузка автосалонов из базы данных Firestore
         fetchDealerships { dealerships ->
             dealerships.forEach { dealership ->
                 getLatLngFromAddress(dealership.address) { latLng ->
@@ -90,17 +83,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
                                 .title(dealership.name)
                                 .snippet(dealership.address)
                         )
-                        marker?.tag = dealership // Сохраняем объект автосалона в маркере
+                        marker?.tag = dealership
                     }
                 }
             }
         }
 
-        // Устанавливаем слушатель кликов на маркеры
         mMap.setOnMarkerClickListener { marker ->
             val dealership = marker.tag as? Dealership
             dealership?.let {
-                // Показать диалог с кнопкой для перехода
                 showDealershipDialog(dealership)
             }
             true
@@ -112,7 +103,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             .setTitle(dealership.name)
             .setMessage("Address: ${dealership.address}")
             .setPositiveButton("Go to") { dialog, which ->
-                // Переход на страницу автосалона
                 val action = MapFragmentDirections.actionMapFragmentToDealershipDetailFragment(dealershipId = dealership.id)
                 findNavController().navigate(action)
             }
@@ -132,7 +122,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             val dealershipName = intent.getStringExtra("DEALERSHIP_NAME")
             val dealershipAddress = intent.getStringExtra("DEALERSHIP_ADDRESS")
 
-            // Обновляем интерфейс с информацией об автосалоне
             findViewById<TextView>(R.id.dealershipNameTextView).text = dealershipName
             findViewById<TextView>(R.id.dealershipAddressTextView).text = dealershipAddress
         }
@@ -164,21 +153,17 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
         }
     }
     private fun moveToCurrentLocation() {
-        // Проверяем наличие разрешений
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // Включаем определение местоположения
             val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val locationProvider = LocationManager.GPS_PROVIDER
 
-            // Получаем последнее известное местоположение
             val lastKnownLocation = locationManager.getLastKnownLocation(locationProvider)
             lastKnownLocation?.let {
                 val currentLatLng = LatLng(it.latitude, it.longitude)
-                // Перемещаем камеру к текущему местоположению с увеличением 15f
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
             }
         }
@@ -195,7 +180,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 enableMyLocation()
             } else {
-                // Разрешение не предоставлено
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -205,7 +190,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
     }
 
     fun fetchDealerships(callback: (List<Dealership>) -> Unit) {
-        db.collection("dealerships") // "dealerships" - это коллекция в Firestore
+        db.collection("dealerships")
             .get()
             .addOnSuccessListener { documents ->
                 val dealerships = documents.map { document ->
@@ -218,7 +203,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, LocationListener {
                 callback(dealerships)
             }
             .addOnFailureListener { exception ->
-                // Обработка ошибок
                 exception.printStackTrace()
             }
     }

@@ -17,8 +17,8 @@ class DealershipRepository {
     }
 
     suspend fun getDealershipById(dealershipId: String): Dealership? {
-        return firestore.collection("dealerships") // Ensure collection is referenced properly
-            .document(dealershipId) // Reference the correct document inside the collection
+        return firestore.collection("dealerships")
+            .document(dealershipId)
             .get().await()
             .toObject(Dealership::class.java)
     }
@@ -28,6 +28,7 @@ class DealershipRepository {
         address: String,
         phoneNumber: String,
         email: String,
+        info: String,
         imageUris: List<Uri>
     ): String {
         val currentUser = auth.currentUser ?: throw IllegalStateException("User must be logged in")
@@ -44,6 +45,7 @@ class DealershipRepository {
             address = address,
             phoneNumber = phoneNumber,
             email = email,
+            info = info,
             imageUrls = imageUrls,
             ownerId = currentUser.uid,
             createdAt = System.currentTimeMillis()
@@ -57,6 +59,7 @@ class DealershipRepository {
         address: String,
         phoneNumber: String,
         email: String,
+        info: String,
     ) {
         val currentUser = auth.currentUser ?: throw IllegalStateException("User must be logged in")
         val userDoc = firestore.collection("users").document(currentUser.uid).get().await()
@@ -71,6 +74,7 @@ class DealershipRepository {
             address = address,
             phoneNumber = phoneNumber,
             email = email,
+            info = info,
             ownerId = currentUser.uid,
             createdAt = System.currentTimeMillis()
         )

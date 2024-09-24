@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
 
-        // Load user info in the navigation header
         updateNavHeader()
 
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -77,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navigationView
         val headerView: View = navView.getHeaderView(0)
 
-        // Access header elements
         val profileNameTextView: TextView = headerView.findViewById(R.id.profile_name)
         val profileEmailTextView: TextView = headerView.findViewById(R.id.profile_email)
         val profileImageView: ImageView = headerView.findViewById(R.id.profile_image)
@@ -86,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         user?.let {
             profileEmailTextView.text = it.email
 
-            // Assuming user name and avatar URL are stored in Firestore under the user's document
             val firestore = FirebaseFirestore.getInstance()
             firestore.collection("users").document(it.uid).get()
                 .addOnSuccessListener { document ->
@@ -96,11 +93,10 @@ class MainActivity : AppCompatActivity() {
 
                         profileNameTextView.text = userName
 
-                        // Load the profile image using Picasso or Glide
                         if (!avatarUrl.isNullOrEmpty()) {
                             Picasso.get()
                                 .load(avatarUrl)
-                                .placeholder(R.drawable.ic_person) // Use a default placeholder
+                                .placeholder(R.drawable.ic_person)
                                 .into(profileImageView)
                         }
                     }

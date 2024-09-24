@@ -42,7 +42,6 @@ class ImageDialogFragment : DialogFragment() {
 
         val dialog = builder.create()
 
-        // Dismiss the dialog when the image is clicked
         imageView.setOnClickListener {
             dialog.dismiss()
         }

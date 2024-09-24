@@ -44,7 +44,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Car Info Section -->
             <TextView
                 android:id="@+id/carInfoHeader"
                 android:layout_width="wrap_content"
@@ -74,7 +73,6 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <!-- Manufacturer -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -123,7 +121,6 @@
                             android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Model -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -172,7 +169,6 @@
                             android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Year -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -221,7 +217,6 @@
                             android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Mileage -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -272,7 +267,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Details Section -->
             <TextView
                 android:id="@+id/carDetailsHeader"
                 android:layout_width="wrap_content"
@@ -302,7 +296,6 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <!-- Condition -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -351,7 +344,6 @@
                             android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Description -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -402,7 +394,6 @@
                             android:gravity="top|start" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Price -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -453,7 +444,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Buttons -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/editSaveButton"
                 android:layout_width="match_parent"
