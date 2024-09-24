@@ -19,15 +19,5 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Button for deleting the image -->
-    <ImageButton
-        android:id="@+id/deleteButton"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="4dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_delete"
-        android:contentDescription="Delete Image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

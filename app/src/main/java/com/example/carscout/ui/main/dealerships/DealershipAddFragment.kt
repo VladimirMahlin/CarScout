@@ -57,10 +57,6 @@ class DealershipAddFragment : Fragment() {
     private fun setupImageRecyclerView() {
         imageAdapter = ImageAdapter(
             imageUris,
-            onDeleteClick = { position ->
-                imageUris.removeAt(position)
-                imageAdapter.notifyItemRemoved(position)
-            },
             onImageClick = { uri ->
                 showImageFullScreen(uri)
             }

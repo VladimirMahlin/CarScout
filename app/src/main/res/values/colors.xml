@@ -1,8 +1,13 @@
 <resources>
     <color name="primary_color">#8F3985</color>
+    <color name="primary_dark_color">#4A1E5E</color>
+
     <color name="secondary_color">#FFB4FF</color>
     <color name="accent_color">#00C895</color>
     <color name="background_color">#FFFFFF</color>
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="errorColor">#FF0000</color>
 </resources>

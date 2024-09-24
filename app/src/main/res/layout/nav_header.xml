@@ -9,6 +9,8 @@
         android:id="@+id/profile_image"
         android:layout_width="72dp"
         android:layout_height="72dp"
+        app:cardCornerRadius="60dp"
+        app:cardElevation="4dp"
         android:src="@drawable/ic_person"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
