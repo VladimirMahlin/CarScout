@@ -49,23 +49,19 @@ class DealershipDetailFragment : Fragment() {
 
         setupImageRecyclerView()
 
-        // Set button click listener
         binding.editSaveButton.setOnClickListener {
             if (isEditing) {
                 saveDealershipDetails()
             } else {
-                enableEditing(true) // Switch to edit mode when the button is clicked
+                enableEditing(true)
             }
         }
 
-        // Start observing the ViewModel
         observeViewModel()
 
-        // Load dealership details by ID
         viewModel.loadDealershipById(args.dealershipId)
 
-        // Ensure view mode is displayed by default (not edit mode)
-        enableEditing(false) // This ensures the initial state is view mode
+        enableEditing(false)
     }
 
 
@@ -90,14 +86,12 @@ class DealershipDetailFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.currentDealership.observe(viewLifecycleOwner) { dealership ->
             dealership?.let {
-                // Setting up edit and view values
                 binding.dealershipNameEditText.setText(dealership.name)
                 binding.dealershipAddressEditText.setText(dealership.address)
                 binding.dealershipPhoneEditText.setText(dealership.phoneNumber)
                 binding.dealershipEmailEditText.setText(dealership.email)
                 binding.dealershipInfoEditText.setText(dealership.info)
 
-                // Setting TextViews for view mode
                 binding.dealershipNameValueTextView.text = dealership.name
                 binding.dealershipAddressValueTextView.text = dealership.address
                 binding.dealershipPhoneValueTextView.text = dealership.phoneNumber
@@ -139,7 +133,6 @@ class DealershipDetailFragment : Fragment() {
         val visibilityInEditMode = if (isEnabled) View.VISIBLE else View.GONE
         val visibilityInViewMode = if (isEnabled) View.GONE else View.VISIBLE
 
-        // Toggle between TextViews (view mode) and TextInputLayouts (edit mode)
         binding.dealershipNameTextView.visibility = visibilityInViewMode
         binding.dealershipNameValueTextView.visibility = visibilityInViewMode
         binding.dealershipNameInputLayout.visibility = visibilityInEditMode
