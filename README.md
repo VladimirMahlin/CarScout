@@ -1,5 +1,5 @@
 Map installation instructions:
-1. ###Google Play Services
+1. Google Play Services
 Open Android Studio and go to SDK Manager:
 
   File > Settings > Appearance & Behavior > System Settings > Android SDK (on Windows/Linux).
