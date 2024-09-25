@@ -62,4 +62,5 @@
     <string name="selected_image">Selected Image</string>
     <string name="user_name">User Name</string>
     <string name="user_example_com">user@example.com</string>
+    <string name="delete_image">Delete image</string>
 </resources>

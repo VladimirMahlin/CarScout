@@ -67,7 +67,7 @@ class DealershipDetailFragment : Fragment() {
 
     private fun setupImageRecyclerView() {
         imageAdapter = ImageAdapter(
-            emptyList(),
+            mutableListOf(),
             onImageClick = { uri ->
                 showImageFullScreen(uri)
             }
@@ -77,6 +77,7 @@ class DealershipDetailFragment : Fragment() {
             adapter = imageAdapter
         }
     }
+
 
     private fun showImageFullScreen(uri: Uri) {
         val dialog = ImageDialogFragment.newInstance(uri)
@@ -98,7 +99,7 @@ class DealershipDetailFragment : Fragment() {
                 binding.dealershipEmailValueTextView.text = dealership.email
                 binding.dealershipInfoValueTextView.text = dealership.info
 
-                val imageUris = dealership.imageUrls.map { Uri.parse(it) }
+                val imageUris = dealership.imageUrls.map { Uri.parse(it) }.toMutableList()
                 imageAdapter = ImageAdapter(
                     imageUris,
                     onImageClick = { uri ->
@@ -106,6 +107,7 @@ class DealershipDetailFragment : Fragment() {
                     }
                 )
                 binding.dealershipImagesRecyclerView.adapter = imageAdapter
+
 
                 isAuthor = viewModel.isCurrentUserAuthor(dealership.ownerId)
                 updateEditButtonVisibility()

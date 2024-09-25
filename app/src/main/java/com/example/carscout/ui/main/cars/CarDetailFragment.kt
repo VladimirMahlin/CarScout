@@ -1,10 +1,10 @@
 package com.example.carscout.ui.main.cars
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.carscout.R
+import com.example.carscout.adapters.ImageAdapter
 import com.example.carscout.databinding.FragmentCarDetailBinding
+import com.example.carscout.ui.main.ImageDialogFragment
 import com.example.carscout.viewmodel.CarViewModel
 import com.example.carscout.viewmodel.CarViewModelFactory
 import com.example.carscout.data.repository.CarRepository
-import com.example.carscout.adapters.ImageAdapter
-import com.example.carscout.ui.main.ImageDialogFragment
+import com.github.dhaval2404.imagepicker.ImagePicker
 
 class CarDetailFragment : Fragment() {
 
@@ -31,6 +33,8 @@ class CarDetailFragment : Fragment() {
     private lateinit var imageAdapter: ImageAdapter
     private var isAuthor = false
 
+    private val imageUris = mutableListOf<Uri>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repository = CarRepository()
@@ -41,7 +45,7 @@ class CarDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentCarDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,20 +63,58 @@ class CarDetailFragment : Fragment() {
         binding.deleteButton.setOnClickListener {
             deleteCar()
         }
+
+        binding.addImageButton.setOnClickListener {
+            openImagePicker()
+        }
+
         observeViewModel()
         viewModel.loadCarById(args.carId)
     }
 
     private fun setupImageRecyclerView() {
         imageAdapter = ImageAdapter(
-            emptyList(),
+            imageUris,
+            isEditing = isEditing,
             onImageClick = { uri ->
                 showImageFullScreen(uri)
+            },
+            onImageDelete = { position ->
+                imageUris.removeAt(position)
+                imageAdapter.notifyItemRemoved(position)
             }
         )
         binding.carImagesRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = imageAdapter
+        }
+    }
+
+
+    private fun openImagePicker() {
+        if (imageUris.size >= 5) {
+            showToast("You can only add up to 5 images.")
+            return
+        }
+
+        ImagePicker.with(this)
+            .crop()
+            .compress(1024)
+            .maxResultSize(1080, 1080)
+            .start()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            val uri: Uri = data?.data ?: return
+            if (imageUris.size < 5) {
+                imageUris.add(uri)
+                imageAdapter.notifyItemInserted(imageUris.size - 1)
+            }
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            showToast(ImagePicker.getError(data))
         }
     }
 
@@ -95,14 +137,9 @@ class CarDetailFragment : Fragment() {
                 binding.carDescriptionTextView.text = car.description
                 binding.carPriceTextView.text = car.price.toString()
 
-                val imageUris = car.imageUrls.map { Uri.parse(it) }
-                imageAdapter = ImageAdapter(
-                    imageUris,
-                    onImageClick = { uri ->
-                        showImageFullScreen(uri)
-                    }
-                )
-                binding.carImagesRecyclerView.adapter = imageAdapter
+                imageUris.clear()
+                imageUris.addAll(car.imageUrls.map { Uri.parse(it) })
+                imageAdapter.notifyDataSetChanged()
 
                 isAuthor = viewModel.isCurrentUserAuthor(car.ownerId)
                 updateEditButtonVisibility()
@@ -166,13 +203,16 @@ class CarDetailFragment : Fragment() {
         binding.carPriceInputLayout.visibility = visibilityInEditMode
     }
 
-
     private fun enableEditing(enable: Boolean) {
         if (!isAuthor) return
         isEditing = enable
         toggleInputFields(enable)
         binding.editSaveButton.text = if (enable) "Save" else "Edit"
+        binding.addImageButton.visibility = if (enable) View.VISIBLE else View.GONE
+
+        imageAdapter.setEditingMode(isEditing)
     }
+
 
     private fun saveCarDetails() {
         if (!isAuthor) {
@@ -211,7 +251,8 @@ class CarDetailFragment : Fragment() {
             mileage,
             condition,
             description,
-            price
+            price,
+            imageUris
         )
         enableEditing(false)
     }
@@ -242,5 +283,9 @@ class CarDetailFragment : Fragment() {
     private fun showImageFullScreen(uri: Uri) {
         val dialog = ImageDialogFragment.newInstance(uri)
         dialog.show(childFragmentManager, "image_dialog")
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

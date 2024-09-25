@@ -86,7 +86,8 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
         mileage: Int,
         condition: String,
         description: String,
-        price: Double
+        price: Double,
+        imageUris: List<Uri>
     ) {
         viewModelScope.launch {
             _loading.value = true
@@ -99,7 +100,8 @@ class CarViewModel(private val repository: CarRepository) : ViewModel() {
                     mileage,
                     condition,
                     description,
-                    price
+                    price,
+                    imageUris
                 )
                 if (success) {
                     _error.value = "Car updated successfully"

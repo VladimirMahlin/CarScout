@@ -1,10 +1,12 @@
 package com.example.carscout.data.repository
 
 import android.net.Uri
+import android.util.Log
 import com.example.carscout.data.model.Car
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
 import kotlinx.coroutines.tasks.await
 
 class CarRepository {
@@ -56,28 +58,46 @@ class CarRepository {
         mileage: Int,
         condition: String,
         description: String,
-        price: Double
+        price: Double,
+        imageUris: List<Uri>
     ): Boolean {
         return try {
-            firestore.collection("listings").document(carId)
-                .update(
-                    mapOf(
-                        "manufacturer" to manufacturer,
-                        "model" to model,
-                        "year" to year,
-                        "mileage" to mileage,
-                        "condition" to condition,
-                        "description" to description,
-                        "price" to price
-                    )
-                ).await()
+            val carRef = firestore.collection("listings").document(carId)
+            val existingCar = carRef.get().await().toObject(Car::class.java)
+                ?: throw Exception("Car not found")
+
+            val currentImageUrls = existingCar.imageUrls.toMutableList()
+
+            val newImageUris = imageUris.filter { uri -> uri.toString().startsWith("content://") }
+            val keptImageUrls = imageUris.filter { uri -> !uri.toString().startsWith("content://") }
+                .map { it.toString() }
+
+            val newImageUrls = uploadImages(newImageUris)
+
+            val removedImageUrls = currentImageUrls - keptImageUrls
+            deleteImagesFromStorage(removedImageUrls)
+
+            val updatedImageUrls = keptImageUrls + newImageUrls
+
+            carRef.update(
+                mapOf(
+                    "manufacturer" to manufacturer,
+                    "model" to model,
+                    "year" to year,
+                    "mileage" to mileage,
+                    "condition" to condition,
+                    "description" to description,
+                    "price" to price,
+                    "imageUrls" to updatedImageUrls
+                )
+            ).await()
             true
         } catch (e: Exception) {
             false
         }
     }
 
-    suspend fun deleteCar(carId: String): Void {
+    suspend fun deleteCar(carId: String): Void? {
         return try {
             firestore.collection("listings").document(carId).delete().await()
         } catch (e: Exception) {
@@ -93,4 +113,21 @@ class CarRepository {
             imageRef.downloadUrl.await().toString()
         }
     }
+
+    private suspend fun deleteImagesFromStorage(imageUrls: List<String>) {
+        for (url in imageUrls) {
+            try {
+                val imageRef = storage.getReferenceFromUrl(url)
+                imageRef.delete().await()
+                Log.d("DeleteImages", "Successfully deleted image at URL: $url")
+            } catch (e: Exception) {
+                if (e is StorageException && e.errorCode == StorageException.ERROR_OBJECT_NOT_FOUND) {
+                    Log.w("DeleteImages", "Image at URL $url does not exist. Skipping deletion.")
+                } else {
+                    Log.e("DeleteImages", "Failed to delete image at $url: ${e.message}")
+                }
+            }
+        }
+    }
+
 }
