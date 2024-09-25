@@ -10,6 +10,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:contentDescription="Car Image" />
+        android:contentDescription="@string/car_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,7 +48,7 @@
                 android:id="@+id/carInfoHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Car Info"
+                android:text="@string/car_info"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/primary_color"
@@ -83,7 +83,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_car"
-                            android:contentDescription="Car icon"
+                            android:contentDescription="@string/car_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -92,7 +92,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Manufacturer"
+                            android:text="@string/manufacturer"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Manufacturer"
+                        android:hint="@string/manufacturer"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -131,7 +131,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_car"
-                            android:contentDescription="Model icon"
+                            android:contentDescription="@string/model_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -140,7 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Model"
+                            android:text="@string/model"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Model"
+                        android:hint="@string/model"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -179,7 +179,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_calendar"
-                            android:contentDescription="Year icon"
+                            android:contentDescription="@string/year_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -188,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Year"
+                            android:text="@string/year"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Year"
+                        android:hint="@string/year"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -227,7 +227,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_odometer"
-                            android:contentDescription="Mileage icon"
+                            android:contentDescription="@string/mileage_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Mileage"
+                            android:text="@string/mileage"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Mileage"
+                        android:hint="@string/mileage"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -271,7 +271,7 @@
                 android:id="@+id/carDetailsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Details"
+                android:text="@string/details"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/primary_color"
@@ -306,7 +306,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_condition"
-                            android:contentDescription="Condition icon"
+                            android:contentDescription="@string/condition_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -315,7 +315,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Condition"
+                            android:text="@string/condition"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -334,7 +334,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Condition"
+                        android:hint="@string/condition"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -354,7 +354,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_description"
-                            android:contentDescription="Description icon"
+                            android:contentDescription="@string/description_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -363,7 +363,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Description"
+                            android:text="@string/description"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -382,7 +382,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Description"
+                        android:hint="@string/description"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -404,7 +404,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_money"
-                            android:contentDescription="Price icon"
+                            android:contentDescription="@string/price_icon"
                             app:tint="@color/primary_color" />
 
                         <TextView
@@ -413,7 +413,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
-                            android:text="Price"
+                            android:text="@string/price"
                             android:textAppearance="?attr/textAppearanceSubtitle1"
                             android:textStyle="bold"/>
 
@@ -431,7 +431,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Price"
+                        android:hint="@string/price"
                         android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -449,7 +449,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Edit"
+                android:text="@string/edit"
                 app:layout_constraintTop_toBottomOf="@id/detailsCard"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -460,7 +460,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Delete"
+                android:text="@string/delete"
                 app:layout_constraintTop_toBottomOf="@id/editSaveButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Dealership Name">
+                        android:hint="@string/dealership_name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/dealershipNameEditText"
@@ -82,14 +82,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Address">
+                        android:hint="@string/address">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/dealershipAddressEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPostalAddress"
-                            android:enabled="false" />
+                            android:enabled="false"
+                            android:inputType="textPostalAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Phone Number">
+                        android:hint="@string/phone_number">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/dealershipPhoneEditText"
@@ -113,14 +113,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Email">
+                        android:hint="@string/email">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/dealershipEmailEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:enabled="false" />
+                            android:layout_marginBottom="16dp"
+                            android:enabled="false"
+                            android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -129,14 +130,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Info">
+                        android:hint="@string/info">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/dealershipInfoEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textMultiLine"
-                            android:enabled="false" />
+                            android:layout_height="90dp"
+                            android:enabled="false"
+                            android:inputType="textMultiLine" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -147,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Edit"
+                android:text="@string/edit"
                 app:layout_constraintTop_toBottomOf="@id/infoCard"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

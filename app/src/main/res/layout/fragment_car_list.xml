@@ -15,7 +15,7 @@
             android:id="@+id/toggleFilterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show Filters"
+            android:text="@string/show_filters"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -45,7 +45,8 @@
                     android:id="@+id/minPriceEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Min Price"
+                    android:autofillHints="0"
+                    android:hint="@string/min_price"
                     android:inputType="numberDecimal"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +58,8 @@
                     android:id="@+id/maxPriceEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Max Price"
+                    android:autofillHints="0"
+                    android:hint="@string/max_price"
                     android:inputType="numberDecimal"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -67,6 +69,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -74,27 +77,30 @@
 
                 <Button
                     android:id="@+id/applyFilterButton"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="4dp"
-                    android:text="Apply Filter"/>
+                    android:text="@string/apply_filter" />
 
                 <Button
                     android:id="@+id/resetFilterButton"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="4dp"
-                    android:text="Reset Filter"/>
+                    android:text="@string/reset_filter" />
 
                 <Button
                     android:id="@+id/userListingsButton"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="4dp"
-                    android:text="Show My Listings"/>
+                    android:text="@string/show_my_listings"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -123,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Add Car"
+            android:text="@string/add_car"
             android:textColor="@color/white"
             app:cornerRadius="8dp"
             app:icon="@drawable/ic_add"
