@@ -48,13 +48,26 @@ class DealershipDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupImageRecyclerView()
+
+        // Set button click listener
         binding.editSaveButton.setOnClickListener {
-            if (isEditing) saveDealershipDetails() else enableEditing(true)
+            if (isEditing) {
+                saveDealershipDetails()
+            } else {
+                enableEditing(true) // Switch to edit mode when the button is clicked
+            }
         }
 
+        // Start observing the ViewModel
         observeViewModel()
+
+        // Load dealership details by ID
         viewModel.loadDealershipById(args.dealershipId)
+
+        // Ensure view mode is displayed by default (not edit mode)
+        enableEditing(false) // This ensures the initial state is view mode
     }
+
 
     private fun setupImageRecyclerView() {
         imageAdapter = ImageAdapter(
@@ -74,15 +87,22 @@ class DealershipDetailFragment : Fragment() {
         dialog.show(childFragmentManager, "image_dialog")
     }
 
-
     private fun observeViewModel() {
         viewModel.currentDealership.observe(viewLifecycleOwner) { dealership ->
             dealership?.let {
+                // Setting up edit and view values
                 binding.dealershipNameEditText.setText(dealership.name)
                 binding.dealershipAddressEditText.setText(dealership.address)
                 binding.dealershipPhoneEditText.setText(dealership.phoneNumber)
                 binding.dealershipEmailEditText.setText(dealership.email)
                 binding.dealershipInfoEditText.setText(dealership.info)
+
+                // Setting TextViews for view mode
+                binding.dealershipNameValueTextView.text = dealership.name
+                binding.dealershipAddressValueTextView.text = dealership.address
+                binding.dealershipPhoneValueTextView.text = dealership.phoneNumber
+                binding.dealershipEmailValueTextView.text = dealership.email
+                binding.dealershipInfoValueTextView.text = dealership.info
 
                 val imageUris = dealership.imageUrls.map { Uri.parse(it) }
                 imageAdapter = ImageAdapter(
@@ -104,7 +124,6 @@ class DealershipDetailFragment : Fragment() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.dealershipImagesRecyclerView.alpha = if (isLoading) 0.5f else 1.0f
             binding.editSaveButton.isEnabled = !isLoading && isAuthor
-            toggleInputFields(!isLoading)
         }
 
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
@@ -117,11 +136,29 @@ class DealershipDetailFragment : Fragment() {
     }
 
     private fun toggleInputFields(isEnabled: Boolean) {
-        binding.dealershipNameInputLayout.isEnabled = isEnabled && isAuthor
-        binding.dealershipAddressInputLayout.isEnabled = isEnabled && isAuthor
-        binding.dealershipPhoneInputLayout.isEnabled = isEnabled && isAuthor
-        binding.dealershipEmailInputLayout.isEnabled = isEnabled && isAuthor
-        binding.dealershipInfoInputLayout.isEnabled = isEnabled && isAuthor
+        val visibilityInEditMode = if (isEnabled) View.VISIBLE else View.GONE
+        val visibilityInViewMode = if (isEnabled) View.GONE else View.VISIBLE
+
+        // Toggle between TextViews (view mode) and TextInputLayouts (edit mode)
+        binding.dealershipNameTextView.visibility = visibilityInViewMode
+        binding.dealershipNameValueTextView.visibility = visibilityInViewMode
+        binding.dealershipNameInputLayout.visibility = visibilityInEditMode
+
+        binding.dealershipAddressTextView.visibility = visibilityInViewMode
+        binding.dealershipAddressValueTextView.visibility = visibilityInViewMode
+        binding.dealershipAddressInputLayout.visibility = visibilityInEditMode
+
+        binding.dealershipPhoneTextView.visibility = visibilityInViewMode
+        binding.dealershipPhoneValueTextView.visibility = visibilityInViewMode
+        binding.dealershipPhoneInputLayout.visibility = visibilityInEditMode
+
+        binding.dealershipEmailTextView.visibility = visibilityInViewMode
+        binding.dealershipEmailValueTextView.visibility = visibilityInViewMode
+        binding.dealershipEmailInputLayout.visibility = visibilityInEditMode
+
+        binding.dealershipInfoTextView.visibility = visibilityInViewMode
+        binding.dealershipInfoValueTextView.visibility = visibilityInViewMode
+        binding.dealershipInfoInputLayout.visibility = visibilityInEditMode
     }
 
     private fun enableEditing(enable: Boolean) {
@@ -148,13 +185,16 @@ class DealershipDetailFragment : Fragment() {
             return
         }
 
+        val imageUrls = imageAdapter.getImageUris().map { it.toString() }
+
         viewModel.updateDealership(
             args.dealershipId,
             name,
             address,
             phoneNumber,
             email,
-            info
+            info,
+            imageUrls
         )
         enableEditing(false)
     }

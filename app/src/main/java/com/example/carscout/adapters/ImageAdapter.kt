@@ -13,6 +13,10 @@ class ImageAdapter(
     private val onImageClick: ((Uri) -> Unit)? = null
 ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
+    fun getImageUris(): List<Uri> {
+        return imageUris
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val binding = ItemImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ImageViewHolder(binding)

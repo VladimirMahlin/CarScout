@@ -1,6 +1,8 @@
 [versions]
 agp = "8.6.1"
 firebaseBom = "33.2.0"
+hiltAndroid = "2.44"
+hiltAndroidCompiler = "2.44"
 imagepicker = "2.1"
 kotlin = "1.9.10"
 coreKtx = "1.13.1"
@@ -17,6 +19,9 @@ navigationUiKtx = "2.7.7"
 picasso = "2.8"
 playServicesCastFramework = "21.5.0"
 firebaseStorageKtx = "21.0.0"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.0.0"
+junitJupiter = "5.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +30,8 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 imagepicker = { module = "com.github.dhaval2404:imagepicker", version.ref = "imagepicker" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -38,6 +45,9 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 play-services-cast-framework = { group = "com.google.android.gms", name = "play-services-cast-framework", version.ref = "playServicesCastFramework" }
 firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

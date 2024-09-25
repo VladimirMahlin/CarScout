@@ -51,11 +51,11 @@ class DealershipViewModel(private val repository: DealershipRepository) : ViewMo
         }
     }
 
-    fun updateDealership(dealershipId: String, name: String, address: String, phoneNumber: String, email: String, info: String) {
+    fun updateDealership(dealershipId: String, name: String, address: String, phoneNumber: String, email: String, info: String, imageUrls: List<String>) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                repository.editDealership(dealershipId, name, address, phoneNumber, email, info)
+                repository.editDealership(dealershipId, name, address, phoneNumber, email, info, imageUrls)
                 _error.value = "Dealership updated successfully"
             } catch (e: Exception) {
                 _error.value = "Failed to update dealership: ${e.message}"

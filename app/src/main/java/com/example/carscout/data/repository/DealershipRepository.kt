@@ -60,6 +60,7 @@ class DealershipRepository {
         phoneNumber: String,
         email: String,
         info: String,
+        imageUrls: List<String>
     ) {
         val currentUser = auth.currentUser ?: throw IllegalStateException("User must be logged in")
         val userDoc = firestore.collection("users").document(currentUser.uid).get().await()
@@ -76,6 +77,7 @@ class DealershipRepository {
             email = email,
             info = info,
             ownerId = currentUser.uid,
+            imageUrls = imageUrls,
             createdAt = System.currentTimeMillis()
         )
         firestore.collection("dealerships").document(dealershipId).set(dealership).await()
