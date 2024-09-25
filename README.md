@@ -1,4 +1,5 @@
 Map installation instructions:
+
 **1. Google Play Services**
 Open Android Studio and go to SDK Manager:
 
