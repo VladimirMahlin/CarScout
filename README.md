@@ -1,5 +1,5 @@
 Map installation instructions:
-1. Google Play Services
+1. ###Google Play Services
 Open Android Studio and go to SDK Manager:
 
   File > Settings > Appearance & Behavior > System Settings > Android SDK (on Windows/Linux).
@@ -16,8 +16,8 @@ On the SDK Platforms tab, select the Android version you are using and make sure
 5. API Key
 Don't forget to create an API key in Google Cloud Console to work with Google Maps and add it to your AndroidManifest.xml file:
 <meta-data
-android:name="com.google.android.geo.API_KEY"
-android:value="YOUR_API_KEY_HERE"/>
+  android:name="com.google.android.geo.API_KEY"
+  android:value="YOUR_API_KEY_HERE"/>
 
 6. Enter the search query google.developer.console in google
 
